@@ -74,7 +74,7 @@ namespace SDK
     {
         char pad_000[0x8]; // scriptable object
         DiffType difficulty;
-        char pad_000[0x3];
+        char pad_001[0x3];
         String* nameKey;
         String* descriptionKey;
         int32_t requiredLevel;
@@ -84,7 +84,7 @@ namespace SDK
         int32_t sprinting;
         bool flashlights;
         bool loseItemsOnDeath;
-        char pad_001[2];
+        char pad_002[2];
         float playerSpeed;
         int32_t evidenceGiven;
         DifficultyValueType changingFav;
@@ -95,7 +95,7 @@ namespace SDK
         float fingerprintChance;
         int32_t fingerprintDuration;
         bool friendlyGhost;
-        char pad_002[3];
+        char pad_003[3];
         DifficultyValueType killsExtendHuntDuration;
         DifficultyValueType roamingFrequency;
         float ghostSpeed;
@@ -107,10 +107,10 @@ namespace SDK
         bool sanityMonitor;
         bool activityMonitor;
         bool fuseBoxVisible;
-        char pad_003;
+        char pad_004;
         DifficultyFuseBoxValueType fuseBoxStartPower;
         int32_t cursedPossesionsQuantity;
-        char pad_004[0x4];
+        char pad_005[0x4];
         void* chosenCursedItems;
         float overrideMultiplier;
         DifficultyWeatherValueType actualWeather;

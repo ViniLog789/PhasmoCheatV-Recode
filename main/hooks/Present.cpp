@@ -48,26 +48,28 @@ HRESULT __stdcall Hooks::HkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval
     Renderer::Context->OMGetRenderTargets(1, &original_target, &original_depth);
     Renderer::Context->OMSetRenderTargets(1, &Renderer::TargetView, nullptr);
     
-    dx_blur_update();
+
+    if (menu.Open && Globals::IsMenuBlur && Globals::CheatWork) dx_blur_update();
 
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
-    if (menu.Open)
+    if (menu.Open && Globals::CheatWork)
     {
         Menu::Render();
     }
 
-    if (IsFocused())
+    if (IsFocused() && Globals::CheatWork)
         BindSystem::ProcessBinds();
 
-    if (GET_FEATURE_HANDLER())                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+    if (GET_FEATURE_HANDLER() && Globals::CheatWork)
     {
         GET_FEATURE_HANDLER()->RenderAll();
     }
 
-    PhasmoCheatV::Notifications::RenderNotifications();
+    if (Globals::CheatWork)
+        Notifications::RenderNotifications();
 
     ImGui::EndFrame();
     ImGui::Render();

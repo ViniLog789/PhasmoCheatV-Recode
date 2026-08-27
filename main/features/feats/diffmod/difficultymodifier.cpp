@@ -296,7 +296,7 @@ void DifficultyModifier::DifficultyModifierApply()
             switch (settingIndex)
             {
             case 0: diff.requiredLevel = CONFIG_INT(GetConfigManager(), "RequiredLevel"); break;
-            case 1: diff.sanityPillRestore = CONFIG_INT(GetConfigManager(), "SanityPillRestoration"); break;
+            case 1: diff.sanityPillRestorationAmount = CONFIG_INT(GetConfigManager(), "SanityPillRestoration"); break;
             case 2: diff.startingSanity = CONFIG_INT(GetConfigManager(), "StartingSanity"); break;
             case 3: diff.sanityDrain = CONFIG_FLOAT(GetConfigManager(), "SanityDrain"); break;
             case 4: diff.sprinting = CONFIG_INT(GetConfigManager(), "Sprinting"); break;
@@ -312,8 +312,8 @@ void DifficultyModifier::DifficultyModifierApply()
             case 14: diff.fingerprintChance = CONFIG_FLOAT(GetConfigManager(), "FingerprintChance"); break;
             case 15: diff.fingerprintDuration = CONFIG_INT(GetConfigManager(), "FingerprintDuration"); break;
             case 16: diff.friendlyGhost = CONFIG_BOOL(GetConfigManager(), "FriendlyGhost"); break;
-            case 17: diff.killsExtend = static_cast<SDK::DifficultyValueType>(CONFIG_INT(GetConfigManager(), "KillsExtendHunt")); break;
-            case 18: diff.roamingFreq = static_cast<SDK::DifficultyValueType>(CONFIG_INT(GetConfigManager(), "RoamingFrequency")); break;
+            case 17: diff.killsExtendHuntDuration = static_cast<SDK::DifficultyValueType>(CONFIG_INT(GetConfigManager(), "KillsExtendHunt")); break;
+            case 18: diff.roamingFrequency = static_cast<SDK::DifficultyValueType>(CONFIG_INT(GetConfigManager(), "RoamingFrequency")); break;
             case 19: diff.ghostSpeed = CONFIG_FLOAT(GetConfigManager(), "GhostSpeed"); break;
             case 20: diff.setupTime = CONFIG_INT(GetConfigManager(), "SetupTime"); break;
             case 21:
@@ -325,7 +325,7 @@ void DifficultyModifier::DifficultyModifierApply()
             case 24: diff.sanityMonitor = CONFIG_BOOL(GetConfigManager(), "SanityMonitor"); break;
             case 25: diff.activityMonitor = CONFIG_BOOL(GetConfigManager(), "ActivityMonitor"); break;
             case 26: diff.fuseBoxVisible = CONFIG_BOOL(GetConfigManager(), "FuseBoxVisible"); break;
-            case 27: diff.fuseBoxStart = static_cast<SDK::DifficultyFuseBoxValueType>(CONFIG_INT(GetConfigManager(), "FuseBoxStartPower")); break;
+            case 27: diff.fuseBoxStartPower = static_cast<SDK::DifficultyFuseBoxValueType>(CONFIG_INT(GetConfigManager(), "FuseBoxStartPower")); break;
             }
         }
 

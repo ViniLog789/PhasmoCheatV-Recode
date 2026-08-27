@@ -6,7 +6,13 @@ ActivityMonitor::ActivityMonitor() : FeatureCore(LANG("ActivityMonitor_Header"),
 
 void ActivityMonitor::OnRender()
 {
-    if (!SDK::EMFData_sFields->instance)
+	if (!IsActive())
+		return;
+
+    if (!Utils::IsInGame())
+        return;
+
+    if (!SDK::EMFData_sFields->instance || !SDK::EMFData_sFields->instance->Fields.Rend)
         return;
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16.0f, 16.0f));

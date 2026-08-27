@@ -10,10 +10,11 @@ void StatsPanel::OnRender()
 
     const auto ls = Utils::GetLevelStats();
 
-    if (!ls)
+    if (!ls || !ls->Fields.boneRoom)
         return;
 
-    if (!ls->Fields.boneRoom) return; // Check game started
+    if (!Utils::IsInGame()) 
+        return;
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16, 16));
     ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8, 12));
@@ -49,9 +50,9 @@ void StatsPanel::OnRender()
 
         DrawRow("Bone room", Utils::UnityStrToSysStr(*ls->Fields.boneRoom).c_str());
         DrawRow("Bone collected", ls->Fields.collectedBone ? "Yes" : "No");
-        DrawRow("Count hunts", std::to_string(ls->Fields.ghostHunts).c_str());
-        DrawRow("Count interactions", std::to_string(ls->Fields.ghostInteractions).c_str());
-        DrawRow("Count events", std::to_string(ls->Fields.ghostEvents).c_str());
+        DrawRow("Count hunts", std::to_string(ls->Fields.amountOfGhostHunts).c_str());
+        DrawRow("Count interactions", std::to_string(ls->Fields.amountOfGhostInteractions).c_str());
+        DrawRow("Count events", std::to_string(ls->Fields.amountOfGhostEvents).c_str());
 
         ImGui::EndTable();
 

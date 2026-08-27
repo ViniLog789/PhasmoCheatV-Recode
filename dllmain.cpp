@@ -134,11 +134,11 @@ extern "C" __declspec(dllexport) DWORD WINAPI PhasmoCheatVThread()
         AHKA(Player_NotifyOfDeathEnd);
         AHKA(Player_NotifyOfDeathStart);
         AHKA(Crucifix_GhostUse);
+        AHKA(WaitForSeconds_ctor);
         PHK(HandCamera_MoveNext, Hooks::hkHandCamera_MoveNext); // using PATTERN_HOOK
 		PHK(HuntingState_ctor, Hooks::hkHuntingState_ctor);
         PHK(EMFData_UpdateNightMareGraph, Hooks::hkEMFData_UpdateNightMareGraph);
         PHK(JournalController_SendState, Hooks::hkJournalController_SendState);
-
 
         // CosmeticsUnlocker hooks
 #if COSMETICSUNLOCKER

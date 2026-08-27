@@ -641,3 +641,5 @@ namespace SDK
 #include "RenderSettings.h"
 #include "HuntingState.h"
 #include "Crucifix.h"
+#include "WaitForSeconds.h"
+#include "MainManager.h"

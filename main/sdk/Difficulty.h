@@ -72,12 +72,13 @@ namespace SDK
 
     struct DifficultyFields
     {
-        char pad_000[0x8];
+        char pad_000[0x8]; // scriptable object
         DiffType difficulty;
-        const char* nameKey;
-        const char* descriptionKey;
+        char pad_000[0x3];
+        String* nameKey;
+        String* descriptionKey;
         int32_t requiredLevel;
-        int32_t sanityPillRestore;
+        int32_t sanityPillRestorationAmount;
         int32_t startingSanity;
         float sanityDrain;
         int32_t sprinting;
@@ -95,9 +96,10 @@ namespace SDK
         int32_t fingerprintDuration;
         bool friendlyGhost;
         char pad_002[3];
-        DifficultyValueType killsExtend;
-        DifficultyValueType roamingFreq;
+        DifficultyValueType killsExtendHuntDuration;
+        DifficultyValueType roamingFrequency;
         float ghostSpeed;
+        int32_t ghostTypeOverride;
         int32_t setupTime;
         DifficultyWeatherValueType selectedWeather;
         DifficultyValueType amountDoorsOpen;
@@ -106,9 +108,10 @@ namespace SDK
         bool activityMonitor;
         bool fuseBoxVisible;
         char pad_003;
-        DifficultyFuseBoxValueType fuseBoxStart;
-        int32_t cursedCount;
-        void* chosenCursed;
+        DifficultyFuseBoxValueType fuseBoxStartPower;
+        int32_t cursedPossesionsQuantity;
+        char pad_004[0x4];
+        void* chosenCursedItems;
         float overrideMultiplier;
         DifficultyWeatherValueType actualWeather;
         CursedItemsArray* actualCursedItems;

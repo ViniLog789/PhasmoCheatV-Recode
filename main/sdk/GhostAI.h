@@ -76,10 +76,10 @@ namespace SDK
         bool FieldE2;
         bool FieldE3;
         bool FieldE4;
-        bool FieldE5;
+        bool delayedBySmudgeStick;
         char pad_003[0x2];
         void* whiteSage;
-        float FieldF0;
+        float activeIncenseDuration; // trash value lol
         float FieldF4;
         bool FieldF8;
         bool FieldF9;

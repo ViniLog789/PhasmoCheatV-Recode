@@ -363,6 +363,8 @@ inline void RegisterAllTranslations()
     ADD_STR("HideBansheeTarget", "Hide Banshee Target", u8"Скрыть цель банши", u8"隐藏女妖锁定的目标");
     ADD_STR("HideCurrentSpeed", "Hide current speed", u8"Скрыть текущую скорость", u8"隐藏当前速度");
     ADD_STR("HideHuntDuration", "Hide hunt duration", u8"Скрыть длительность охоты", u8"隐藏猎杀持续时间");
+    ADD_STR("HideGhostAfterHunting", "Hide Ghost After Hunting", u8"Скрыть призрака после охоты");
+	ADD_STR("HideGhostSmudged", "Hide Ghost Smudged", u8"Скрыть окуренного призрака");
     ADD_STR("FavoriteRoom", "Favorite Room", u8"Любимая комната", u8"鬼魂最喜爱的房间");
     ADD_STR("Location", "Location", u8"Текущая локация", u8"鬼魂位置");
     ADD_STR("MimicType", "Mimic Type", u8"Тип мимика", u8"拟魂模仿的鬼魂类型");
@@ -374,6 +376,9 @@ inline void RegisterAllTranslations()
     ADD_STR("GhostState", "Ghost State", u8"Состояние призрака", u8"鬼魂状态");
     ADD_STR("GhostCurrentSpeed", "Current Speed", u8"Текущая скорость", u8"当前速度");
     ADD_STR("GhostHuntDuration", "Hunt duration", u8"Длительность охоты", u8"猎杀持续时间");
+    ADD_STR("GhostSmudged", "Smudged", u8"Окурен");
+    ADD_STR("GhostAfterHunting", "After Hunting", u8"После охоты");
+
 
     // SpiritBox Always Answer
     ADD_STR("EnableSpiritBoxAlw", "Enable Spirit Box Always Answer", u8"Включить всегда ответ от радиоприёмника", u8"启用通灵盒必定回应");
@@ -544,6 +549,21 @@ inline void RegisterAllTranslations()
     ADD_STR("Watermark_ShowFPS", "Show FPS", u8"Показывать FPS", u8"显示帧率");
     ADD_STR("Watermark_ShowSanity", "Show average sanity", u8"Показывать среднюю рассудочность", u8"显示平均理智值");
     ADD_STR("Watermark_ShowPing", "Show ping", u8"Показывать пинг", u8"显示延迟");
+	ADD_STR("Watermark_ShowCPU", "Show CPU usage", u8"Показывать использование CPU");
+	ADD_STR("Watermark_ShowRAM", "Show RAM usage", u8"Показывать использование оперативной памяти");
+	ADD_STR("Watermark_ShowRAMMB", "Show RAM in MB", u8"Показывать использование оперативной памяти в МБ");
+	ADD_STR("Watermark_ShowTime", "Show time", u8"Показывать время");
+	ADD_STR("Watermark_TopLeft", "Top Left", u8"Сверху слева");
+	ADD_STR("Watermark_TopRight", "Top Right", u8"Сверху справа");
+	ADD_STR("Watermark_BottomLeft", "Bottom Left", u8"Снизу слева");
+	ADD_STR("Watermark_BottomRight", "Bottom Right", u8"Снизу справа");
+	ADD_STR("Watermark_TopCenter", "Top Center", u8"Сверху по центру");
+	ADD_STR("Watermark_BottomCenter", "Bottom Center", u8"Снизу по центру");
+	ADD_STR("Watermark_MiddleLeft", "Middle Left", u8"Посреди слева");
+	ADD_STR("Watermark_MiddleRight", "Middle Right", u8"Посреди справа");
+	ADD_STR("Watermark_Center", "Center", u8"По центру");
+	ADD_STR("Watermark_Free", "Free", u8"Свободное");
+	ADD_STR("Watermark_Position", "Position", u8"Позиция");
 
     // Temperature Panel
     ADD_STR("TemperaturePanelEnable", "Enable temperature panel", u8"Включить панель температуры", u8"启用温度面板");

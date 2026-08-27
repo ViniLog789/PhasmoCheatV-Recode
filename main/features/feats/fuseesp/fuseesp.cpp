@@ -12,6 +12,9 @@ FuseBoxESP::FuseBoxESP() : FeatureCore(LANG("FuseBoxESP_Header"), TYPE_VISUALS)
 
 void FuseBoxESP::OnRender()
 {
+	if (!IsActive() || !Utils::IsInGame())
+		return;
+
 	auto levelController = SDK::LevelController_sFields->instance;
 	if (!levelController)
 		return;
@@ -19,6 +22,9 @@ void FuseBoxESP::OnRender()
 	auto fuseBox = levelController->Fields.fuseBox;
 
 	if (!fuseBox)
+		return;
+
+	if (!fuseBox->Fields.Field8)
 		return;
 
 	const auto& fuseBoxPosition = Utils::GetPosVec3(fuseBox->Fields.Field8);

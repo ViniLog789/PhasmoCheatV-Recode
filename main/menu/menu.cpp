@@ -692,9 +692,16 @@ void Menu::Render()
 
                 if (ImGui::Button("Dump contracts (map + id)"))
                 {
-                    auto* array = reinterpret_cast<SDK::ContractsArray*>(
-                        InGame::levelSelectionManager->Fields.contracts
-                        );
+					auto mainManager = SDK::MainManager_staticFields->instance;
+					if (!mainManager)
+					{
+						LOG_ERROR("MainManager instance is null");
+						return;
+					}
+
+                    auto levelSelection = mainManager->Fields.levelSelection;
+
+                    auto* array = reinterpret_cast<SDK::ContractsArray*>(levelSelection->Fields.contracts);
 
                     if (!array || array->max_length == 0)
                     {
@@ -717,10 +724,25 @@ void Menu::Render()
                     }
                 }
 
-                if (ImGui::Button("Test Static Fields"))
+                if (ImGui::Button("Test isingame"))
                 {
-                    auto instance = SDK::GameController_StaticFields->instance;
-                    LOG_INFO(instance);
+                    bool inGame =
+                        SDK::GameController_StaticFields->instance &&
+                        SDK::GameController_StaticFields->instance->Fields.allPlayersAreConnected &&
+                        Utils::GetGhostAI() &&
+                        Utils::GetGhostAI()->Fields.GhostInfo &&
+                        Utils::GetGhostAI()->Fields.GhostInfo->Fields.GhostTraits.Name;
+
+					LOG_INFO("Is in game: ", inGame);
+
+                    LOG_INFO("===");
+
+					LOG_INFO("GameController instance: ", SDK::GameController_StaticFields->instance);
+					LOG_INFO("allPlayersAreConnected: ", SDK::GameController_StaticFields->instance ? SDK::GameController_StaticFields->instance->Fields.allPlayersAreConnected : false);
+					LOG_INFO("GhostAI: ", Utils::GetGhostAI());
+					LOG_INFO("GhostInfo: ", Utils::GetGhostAI() ? Utils::GetGhostAI()->Fields.GhostInfo : nullptr);
+					LOG_INFO("GhostName_: ", Utils::GetGhostAI() && Utils::GetGhostAI()->Fields.GhostInfo ? Utils::GetGhostAI()->Fields.GhostInfo->Fields.GhostTraits.Name : nullptr);
+					LOG_INFO(Utils::GetActiveSceneName());
                 }
 
                 if (ImGui::Button("Call test"))

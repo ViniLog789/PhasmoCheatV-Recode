@@ -9,9 +9,12 @@ namespace PhasmoCheatV::Features::Visuals
         PotatoeEsp();
         ~PotatoeEsp() override = default;
 
-        void OnActivate() override {}
-        void OnDeactivate() override {}
+        void OnActivate() override;
+        void OnDeactivate() override;
         void OnRender() override;
         void OnMenuRender() override;
+
+    private:
+		SDK::Transform* cachedPotatoeTransform = nullptr;
     };
 }

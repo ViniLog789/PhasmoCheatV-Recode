@@ -63,10 +63,7 @@ static void SetShaderKeywords(bool disable)
     setKwd("SHADOWS_SHADOWMASK");
 }
 
-// ============================================================
-// BoostPlayerLights — auto-runs every frame on Bleasdale
-// ============================================================
-
+// run on every frame, only if Bleasdale map is detected
 void Fullbright::BoostPlayerLights()
 {
     float intensity = CONFIG_FLOAT(GetConfigManager(), "Intensity");
@@ -110,10 +107,6 @@ void Fullbright::BoostPlayerLights()
         }
     }
 }
-
-// ============================================================
-// BoostDarkMaterials — manual via ForceApply button
-// ============================================================
 
 void Fullbright::BoostDarkMaterials()
 {
@@ -198,20 +191,16 @@ void Fullbright::BoostDarkMaterials()
     }
 }
 
-// ============================================================
-// Core lifecycle
-// ============================================================
-
 void Fullbright::OnDeactivate()
 {
-    if (InGame::FBGO) {
-        SDK::Object_Destroy((SDK::Object*)InGame::FBGO, nullptr);
-        InGame::FBGO = nullptr;
+    if (m_lightGO) {
+        SDK::Object_Destroy((SDK::Object*)m_lightGO, nullptr);
+        m_lightGO = nullptr;
+        m_lightComp = nullptr;
     }
     else {
-        auto* fbName = Utils::SysStrToUnityStr("VComTeamLight");
-        if (fbName) {
-            auto* go = SDK::GameObject_Find(fbName, nullptr);
+        if (m_fbNameStr) {
+            auto* go = SDK::GameObject_Find(m_fbNameStr, nullptr);
             if (go) {
                 SDK::Object_Destroy((SDK::Object*)go, nullptr);
             }
@@ -223,95 +212,97 @@ void Fullbright::OnDeactivate()
         SDK::RenderSettings_set_fog(true, nullptr);
         SDK::RenderSettings_set_ambientMode(1, nullptr);
         SDK::RenderSettings_set_ambientIntensity(1.0f, nullptr);
+        m_bleasdaleInitDone = false;
     }
-    m_bleasdaleInitDone = false;
+}
+
+void Fullbright::OnActivate()
+{
+    if (!m_fbNameStr) {
+        m_fbNameStr = Utils::SysStrToUnityStr("VComTeamLight");
+    }
+
+    m_lightGO = SDK::GameObject_Find(m_fbNameStr, nullptr);
+
+    if (m_lightGO) {
+        if (!m_cachedLightType) {
+            auto typeName = Utils::SysStrToUnityStr("UnityEngine.Light, UnityEngine.CoreModule");
+            m_cachedLightType = SDK::System_Type_GetType(typeName, nullptr);
+        }
+        m_lightComp = (SDK::Light*)SDK::GameObject_GetComponent(m_lightGO, m_cachedLightType, nullptr);
+    }
 }
 
 void Fullbright::FullbrightMain()
 {
-    SDK::String* fbName = Utils::SysStrToUnityStr("VComTeamLight");
-    SDK::GameObject* gameObject = SDK::GameObject_Find(fbName, nullptr);
-
     if (!IsActive()) {
-        if (gameObject) {
-            SDK::Object_Destroy((SDK::Object*)gameObject, nullptr);
-            InGame::FBGO = nullptr;
+        if (m_lightGO) {
+            SDK::GameObject_SetActive(m_lightGO, false, nullptr);
         }
         return;
+    }
+
+    auto localPlayer = Utils::GetLocalPlayer();
+    if (!localPlayer) return;
+
+    if (!m_cachedLightType) {
+        auto typeName = Utils::SysStrToUnityStr("UnityEngine.Light, UnityEngine.CoreModule");
+        m_cachedLightType = SDK::System_Type_GetType(typeName, nullptr);
+    }
+
+    if (!m_lightGO) {
+        m_lightGO = (SDK::GameObject*)CreateIl2CppObject("UnityEngine.CoreModule", "UnityEngine", "GameObject");
+        if (!m_lightGO) return;
+
+        SDK::Object_set_name((SDK::Object*)m_lightGO, m_fbNameStr, nullptr);
+
+        m_lightComp = (SDK::Light*)SDK::GameObject_AddComponent(m_lightGO, m_cachedLightType, nullptr);
+        if (!m_lightComp) {
+            m_lightGO = nullptr;
+            return;
+        }
+
+        SDK::Light_type_set(m_lightComp, SDK::LightType::Point, nullptr);
+        SDK::Light_shadows_set(m_lightComp, SDK::ShadowsType::None, nullptr);
+        SDK::Light_renderMode_set(m_lightComp, SDK::RenderMode::ForceVertex, nullptr);
+
+        SDK::Object_DontDestroyOnLoad((SDK::Object*)m_lightGO, nullptr);
+        SDK::GameObject_SetActive(m_lightGO, true, nullptr);
     }
 
     float intensity = CONFIG_FLOAT(GetConfigManager(), "Intensity");
     float range = CONFIG_FLOAT(GetConfigManager(), "Range");
 
-    if (!gameObject) {
-        gameObject = (SDK::GameObject*)CreateIl2CppObject("UnityEngine.CoreModule", "UnityEngine", "GameObject");
-        if (!gameObject) return;
-        SDK::Object_set_name((SDK::Object*)gameObject, fbName, nullptr);
+    SDK::Light_intensity_set(m_lightComp, intensity, nullptr);
+    SDK::Light_range_set(m_lightComp, range, nullptr);
 
-        SDK::String* lightTypeName = Utils::SysStrToUnityStr("UnityEngine.Light, UnityEngine.CoreModule");
-        if (!lightTypeName) return;
-        SDK::Type* lightType = SDK::System_Type_GetType(lightTypeName, nullptr);
-        if (!lightType) return;
-        SDK::Component* lightComponent = SDK::GameObject_AddComponent(gameObject, lightType, nullptr);
-        if (!lightComponent) return;
-        SDK::Light* light = (SDK::Light*)lightComponent;
-        SDK::Light_type_set(light, SDK::LightType::Point, nullptr);
-        SDK::Light_intensity_set(light, intensity, nullptr);
-        SDK::Light_range_set(light, range, nullptr);
-        SDK::Light_shadows_set(light, SDK::ShadowsType::None, nullptr);
-        SDK::Light_renderMode_set(light, SDK::RenderMode::ForceVertex, nullptr);
-        SDK::GameObject_SetActive(gameObject, true, nullptr);
-        InGame::FBGO = gameObject;
-    }
-    else {
-        SDK::Light* light = reinterpret_cast<SDK::Light*>(
-            SDK::GameObject_GetComponent(
-                gameObject,
-                SDK::System_Type_GetType(
-                    Utils::SysStrToUnityStr("UnityEngine.Light, UnityEngine.CoreModule"),
-                    nullptr
-                ),
-                nullptr
-            )
-        );
-        if (light) {
-            SDK::Light_intensity_set(light, intensity, nullptr);
-            SDK::Light_range_set(light, range, nullptr);
-        }
-        if (!SDK::GameObject_get_activeSelf(gameObject, nullptr)) {
-            SDK::GameObject_SetActive(gameObject, true, nullptr);
-        }
+    if (!SDK::GameObject_get_activeSelf(m_lightGO, nullptr)) {
+        SDK::GameObject_SetActive(m_lightGO, true, nullptr);
     }
 
-    auto localPlayer = Utils::GetLocalPlayer();
-    if (!localPlayer) return;
-    auto lightTransform = SDK::GameObject_get_transform(gameObject, nullptr);
-    if (!lightTransform) return;
+    auto lightTransform = SDK::GameObject_get_transform(m_lightGO, nullptr);
     auto playerTransform = SDK::Component_Get_Transform((SDK::Component*)localPlayer, nullptr);
-    if (!playerTransform) return;
-    auto currentParent = SDK::Transform_Get_Parent(lightTransform, nullptr);
-    if (currentParent != playerTransform) {
-        SDK::Transform_Set_Parent(lightTransform, playerTransform, nullptr);
-    }
-    SDK::Vector3 playerPos = Utils::GetPosVec3(localPlayer);
-    playerPos.Y += 3.5f;
-    SDK::Transform_Set_Position(lightTransform, playerPos, nullptr);
-    SDK::Transform_Set_Rotation(lightTransform, SDK::identityQuaternion, nullptr);
 
-    // Bleasdale: auto-init lightmap/ambient fixes + per-frame player light boost
+    if (lightTransform && playerTransform) {
+        SDK::Vector3 playerPos = Utils::GetPosVec3(localPlayer);
+        playerPos.Y += 3.5f;
+        SDK::Transform_Set_Position(lightTransform, playerPos, nullptr);
+        SDK::Transform_Set_Rotation(lightTransform, SDK::identityQuaternion, nullptr);
+    }
+
     if (IsBleasdaleFarmhouse()) {
         if (!m_bleasdaleInitDone) {
             SetShaderKeywords(true);
             SDK::RenderSettings_set_fog(false, nullptr);
-            SDK::Color white = { 1, 1, 1, 1 };
+            SDK::Color white = { 1.0f, 1.0f, 1.0f, 1.0f };
             SDK::RenderSettings_set_ambientMode(0, nullptr);
             SDK::RenderSettings_set_ambientIntensity(2.0f, nullptr);
             SDK::RenderSettings_set_ambientLight(white, nullptr);
-            SDK::RenderSettings_set_ambientSkyColor(white, nullptr);
-            SDK::RenderSettings_set_ambientEquatorColor(white, nullptr);
-            SDK::RenderSettings_set_ambientGroundColor(white, nullptr);
             m_bleasdaleInitDone = true;
         }
         BoostPlayerLights();
+    }
+    else {
+        m_bleasdaleInitDone = false;
     }
 }

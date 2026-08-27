@@ -325,32 +325,32 @@ void Watermark::OnMenuRender()
         if (ImGui::Checkbox(LANG("Watermark_ShowPing"), &showPing))
             SET_CONFIG_VALUE(GetConfigManager(), "ShowPing", bool, showPing);
 
-        if (ImGui::Checkbox("Show CPU", &showCPU))
+        if (ImGui::Checkbox(LANG("Watermark_ShowCPU"), &showCPU))
             SET_CONFIG_VALUE(GetConfigManager(), "ShowCPU", bool, showCPU);
 
-        if (ImGui::Checkbox("Show RAM %", &showRAM))
+        if (ImGui::Checkbox(LANG("Watermark_ShowRAM"), &showRAM))
             SET_CONFIG_VALUE(GetConfigManager(), "ShowRAM", bool, showRAM);
 
-        if (ImGui::Checkbox("Show RAM MB", &showRAMMB))
+        if (ImGui::Checkbox(LANG("Watermark_ShowRAMMB"), &showRAMMB))
             SET_CONFIG_VALUE(GetConfigManager(), "ShowRAMMB", bool, showRAMMB);
 
-        if (ImGui::Checkbox("Show Time", &showTime))
+        if (ImGui::Checkbox(LANG("Watermark_ShowTime"), &showTime))
             SET_CONFIG_VALUE(GetConfigManager(), "ShowTime", bool, showTime);
 
         const char* positions[] = {
-            "Top Left",
-            "Top Right",
-            "Bottom Left",
-            "Bottom Right",
-            "Top Center",
-            "Bottom Center",
-            "Middle Left",
-            "Middle Right",
-            "Center",
-            "Free"
+            LANG("Watermark_TopLeft"),
+            LANG("Watermark_TopRight"),
+            LANG("Watermark_BottomLeft"),
+            LANG("Watermark_BottomRight"),
+            LANG("Watermark_TopCenter"),
+            LANG("Watermark_BottomCenter"),
+            LANG("Watermark_MiddleLeft"),
+            LANG("Watermark_MiddleRight"),
+            LANG("Watermark_Center"),
+            LANG("Watermark_Free")
         };
 
-        if (ImGui::Combo("Position", &position, positions, IM_ARRAYSIZE(positions)))
+        if (ImGui::Combo(LANG("Watermark_Position"), &position, positions, IM_ARRAYSIZE(positions)))
             SET_CONFIG_VALUE(GetConfigManager(), "Position", int, position);
     }
 

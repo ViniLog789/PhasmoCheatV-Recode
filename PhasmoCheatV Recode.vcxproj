@@ -319,6 +319,7 @@
     <ClCompile Include="main\hooks\TarotCard_SetCard.cpp" />
     <ClCompile Include="main\hooks\Thermometer_HoldUse.cpp" />
     <ClCompile Include="main\hooks\VoodooDollPin_Use.cpp" />
+    <ClCompile Include="main\hooks\WaitForSeconds_ctor.cpp" />
     <ClCompile Include="main\hooks\WndProc.cpp" />
     <ClCompile Include="main\hooks\hooking.cpp" />
     <ClCompile Include="main\logging\logger.cpp" />
@@ -573,6 +574,7 @@
     <ClInclude Include="main\sdk\LineRenderer.h" />
     <ClInclude Include="main\sdk\LocalPCPlayer.h" />
     <ClInclude Include="main\sdk\LocalPlayer.h" />
+    <ClInclude Include="main\sdk\MainManager.h" />
     <ClInclude Include="main\sdk\Map.h" />
     <ClInclude Include="main\sdk\MapController.h" />
     <ClInclude Include="main\sdk\Material.h" />
@@ -633,6 +635,7 @@
     <ClInclude Include="main\sdk\Vector4.h" />
     <ClInclude Include="main\sdk\Voice.h" />
     <ClInclude Include="main\sdk\VoodooDollPin.h" />
+    <ClInclude Include="main\sdk\WaitForSeconds.h" />
     <ClInclude Include="main\sdk\WeatherProfile.h" />
     <ClInclude Include="main\utils\notification.h" />
     <ClInclude Include="main\utils\utils.h" />

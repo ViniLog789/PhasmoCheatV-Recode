@@ -40,4 +40,5 @@ namespace SDK
 	DEC_MET(Object_set_name, void(*)(Object* object, String* name, MethodInfo* methodInfo), "UnityEngine.CoreModule", "UnityEngine", "Object", "set_name", 1);
     DEC_MET(Object_FindObjectFromInstanceID, Object* (*)(int32_t instanceId, MethodInfo* methodInfo), "UnityEngine.CoreModule", "UnityEngine", "Object", "FindObjectFromInstanceID", 1);
     DEC_MET(Object_IsNativeAlive, bool(*)(Object* object, MethodInfo* methodInfo), "UnityEngine.CoreModule", "UnityEngine", "Object", "IsNativeObjectAlive", 1);
+    DEC_MET(Object_DontDestroyOnLoad, void(*)(Object* object, MethodInfo* methodInfo), "UnityEngine.CoreModule", "UnityEngine", "Object", "DontDestroyOnLoad", 1);
 }

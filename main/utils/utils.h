@@ -77,7 +77,7 @@ namespace Utils {
 	bool IsInGame();
 	SDK::Component* FindComponentByType(std::string type, bool retFirstComponent = false);
 	bool IsObjectInFront(const SDK::Vector3& targetPos, const SDK::Vector3& referencePos, const SDK::Vector3& referenceForward);
-
+	int32_t GetGhostTypeInt();
 
 	// Helper functions
 	template<typename T>

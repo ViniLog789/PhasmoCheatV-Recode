@@ -1,63 +1,84 @@
-#pragma once
 #include "ghostesp.h"
-#include <vector>
-#include <cmath>
-#include <chrono>
-#define STB_IMAGE_IMPLEMENTATION
-#include "imgui/stb_image.h" 
 
-using namespace std::chrono;
+#include <array>
+#include <cmath>
+#include <filesystem>
+#include <vector>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "imgui/stb_image.h"
 
 using namespace PhasmoCheatV::Features::Visuals;
 
+namespace
+{
+    using Bone = SDK::HumanBodyBones;
+
+    constexpr std::array<std::pair<Bone, Bone>, 20> kMainConnections = {
+        std::pair{ Bone::Hips, Bone::Spine },
+        std::pair{ Bone::Spine, Bone::Chest },
+        std::pair{ Bone::Chest, Bone::Neck },
+        std::pair{ Bone::Neck, Bone::Head },
+        std::pair{ Bone::Chest, Bone::LeftShoulder },
+        std::pair{ Bone::LeftShoulder, Bone::LeftUpperArm },
+        std::pair{ Bone::LeftUpperArm, Bone::LeftLowerArm },
+        std::pair{ Bone::LeftLowerArm, Bone::LeftHand },
+        std::pair{ Bone::Chest, Bone::RightShoulder },
+        std::pair{ Bone::RightShoulder, Bone::RightUpperArm },
+        std::pair{ Bone::RightUpperArm, Bone::RightLowerArm },
+        std::pair{ Bone::RightLowerArm, Bone::RightHand },
+        std::pair{ Bone::Hips, Bone::LeftUpperLeg },
+        std::pair{ Bone::LeftUpperLeg, Bone::LeftLowerLeg },
+        std::pair{ Bone::LeftLowerLeg, Bone::LeftFoot },
+        std::pair{ Bone::LeftFoot, Bone::LeftToes },
+        std::pair{ Bone::Hips, Bone::RightUpperLeg },
+        std::pair{ Bone::RightUpperLeg, Bone::RightLowerLeg },
+        std::pair{ Bone::RightLowerLeg, Bone::RightFoot },
+        std::pair{ Bone::RightFoot, Bone::RightToes }
+    };
+
+    constexpr std::array<Bone, 21> kMainBones = {
+        Bone::Hips,
+        Bone::Spine,
+        Bone::Chest,
+        Bone::Neck,
+        Bone::Head,
+        Bone::LeftShoulder,
+        Bone::LeftUpperArm,
+        Bone::LeftLowerArm,
+        Bone::LeftHand,
+        Bone::RightShoulder,
+        Bone::RightUpperArm,
+        Bone::RightLowerArm,
+        Bone::RightHand,
+        Bone::LeftUpperLeg,
+        Bone::LeftLowerLeg,
+        Bone::LeftFoot,
+        Bone::LeftToes,
+        Bone::RightUpperLeg,
+        Bone::RightLowerLeg,
+        Bone::RightFoot,
+        Bone::RightToes
+    };
+
+    constexpr size_t kBoneSlotCount =
+        static_cast<size_t>(SDK::HumanBodyBones::LastBone);
+
+    struct BoneScreenData
+    {
+        SDK::Vector3 Screen{};
+        bool Visible = false;
+    };
+
+    using BoneScreenCache = std::array<BoneScreenData, kBoneSlotCount>;
+
+    constexpr size_t BoneIndex(Bone bone)
+    {
+        return static_cast<size_t>(bone);
+    }
+}
+
 ID3D11Device* GhostESP::g_pd3dDevice = nullptr;
-
-std::vector<std::pair<SDK::HumanBodyBones, SDK::HumanBodyBones>> mainConnections = {
-    {SDK::HumanBodyBones::Hips, SDK::HumanBodyBones::Spine},
-    {SDK::HumanBodyBones::Spine, SDK::HumanBodyBones::Chest},
-    {SDK::HumanBodyBones::Chest, SDK::HumanBodyBones::Neck},
-    {SDK::HumanBodyBones::Neck, SDK::HumanBodyBones::Head},
-    {SDK::HumanBodyBones::Chest, SDK::HumanBodyBones::LeftShoulder},
-    {SDK::HumanBodyBones::LeftShoulder, SDK::HumanBodyBones::LeftUpperArm},
-    {SDK::HumanBodyBones::LeftUpperArm, SDK::HumanBodyBones::LeftLowerArm},
-    {SDK::HumanBodyBones::LeftLowerArm, SDK::HumanBodyBones::LeftHand},
-    {SDK::HumanBodyBones::Chest, SDK::HumanBodyBones::RightShoulder},
-    {SDK::HumanBodyBones::RightShoulder, SDK::HumanBodyBones::RightUpperArm},
-    {SDK::HumanBodyBones::RightUpperArm, SDK::HumanBodyBones::RightLowerArm},
-    {SDK::HumanBodyBones::RightLowerArm, SDK::HumanBodyBones::RightHand},
-    {SDK::HumanBodyBones::Hips, SDK::HumanBodyBones::LeftUpperLeg},
-    {SDK::HumanBodyBones::LeftUpperLeg, SDK::HumanBodyBones::LeftLowerLeg},
-    {SDK::HumanBodyBones::LeftLowerLeg, SDK::HumanBodyBones::LeftFoot},
-    {SDK::HumanBodyBones::LeftFoot, SDK::HumanBodyBones::LeftToes},
-    {SDK::HumanBodyBones::Hips, SDK::HumanBodyBones::RightUpperLeg},
-    {SDK::HumanBodyBones::RightUpperLeg, SDK::HumanBodyBones::RightLowerLeg},
-    {SDK::HumanBodyBones::RightLowerLeg, SDK::HumanBodyBones::RightFoot},
-    {SDK::HumanBodyBones::RightFoot, SDK::HumanBodyBones::RightToes}
-};
-
-std::vector<SDK::HumanBodyBones> mainBones = {
-    SDK::HumanBodyBones::Hips,
-    SDK::HumanBodyBones::Spine,
-    SDK::HumanBodyBones::Chest,
-    SDK::HumanBodyBones::Neck,
-    SDK::HumanBodyBones::Head,
-    SDK::HumanBodyBones::LeftShoulder,
-    SDK::HumanBodyBones::LeftUpperArm,
-    SDK::HumanBodyBones::LeftLowerArm,
-    SDK::HumanBodyBones::LeftHand,
-    SDK::HumanBodyBones::RightShoulder,
-    SDK::HumanBodyBones::RightUpperArm,
-    SDK::HumanBodyBones::RightLowerArm,
-    SDK::HumanBodyBones::RightHand,
-    SDK::HumanBodyBones::LeftUpperLeg,
-    SDK::HumanBodyBones::LeftLowerLeg,
-    SDK::HumanBodyBones::LeftFoot,
-    SDK::HumanBodyBones::LeftToes,
-    SDK::HumanBodyBones::RightUpperLeg,
-    SDK::HumanBodyBones::RightLowerLeg,
-    SDK::HumanBodyBones::RightFoot,
-    SDK::HumanBodyBones::RightToes
-};
 
 GhostESP::GhostESP() : FeatureCore(LANG("GhostESP_Header"), TYPE_VISUALS)
 {
@@ -77,62 +98,140 @@ GhostESP::GhostESP() : FeatureCore(LANG("GhostESP_Header"), TYPE_VISUALS)
     LoadAvailablePhotos();
 }
 
+bool GhostESP::BuildProjectionContext(ProjectionContext& out)
+{
+    out = {};
+
+    const auto* localPlayer = Utils::GetLocalPlayer();
+    if (!localPlayer || !localPlayer->Fields.LocalPlayer)
+        return false;
+
+    out.Camera = localPlayer->Fields.LocalPlayer->Fields.Camera;
+    if (!out.Camera)
+        return false;
+
+    out.ScreenHeight = static_cast<float>(SDK::Screen_Get_Height(nullptr));
+    return out.ScreenHeight > 0.0f;
+}
+
+bool GhostESP::ProjectWorldToScreen(const ProjectionContext& context, const SDK::Vector3& worldPos, SDK::Vector3& screenPos)
+{
+    screenPos = {};
+
+    if (!context.Camera || context.ScreenHeight <= 0.0f)
+        return false;
+
+    const SDK::Vector3 projected =
+        SDK::Camera_WorldToScreenPoint(context.Camera, worldPos, nullptr);
+
+    if (projected.Z <= 0.0f)
+        return false;
+
+    screenPos = {
+        projected.X,
+        context.ScreenHeight - projected.Y,
+        projected.Z
+    };
+
+    return true;
+}
+
+bool GhostESP::BuildBodySnapshot(const SDK::GhostAI* ghostAI, const ProjectionContext& projection, BodySnapshot& out)
+{
+    out = {};
+
+    if (!ghostAI || !ghostAI->Fields.raycastPoint || !ghostAI->Fields.feetRaycastPoint)
+        return false;
+
+    const SDK::Vector3 topWorld =
+        Utils::GetPosVec3(ghostAI->Fields.raycastPoint);
+    const SDK::Vector3 bottomWorld =
+        Utils::GetPosVec3(ghostAI->Fields.feetRaycastPoint);
+
+    if (!ProjectWorldToScreen(projection, topWorld, out.TopScreen) ||
+        !ProjectWorldToScreen(projection, bottomWorld, out.BottomScreen))
+    {
+        return false;
+    }
+
+    out.Valid = true;
+    return true;
+}
+
 void GhostESP::OnRender()
 {
-    if (!IsActive()) return;
-    if (!Utils::GetGhostAI()) return;
+    if (!IsActive() || !Utils::IsInGame())
+        return;
 
-    const auto ghostInfo = Utils::GetGhostAI()->Fields.GhostInfo;
-    if (!ghostInfo) return;
+    const auto* ghostAI = Utils::GetGhostAI();
+    if (!ghostAI || !ghostAI->Fields.GhostInfo)
+        return;
 
-    const ImColor nameCol = CONFIG_COLOR(GetConfigManager(), "NameCol");
+    ProjectionContext projection;
+    if (!BuildProjectionContext(projection))
+        return;
 
-    DrawName(Utils::GetGhostAI(), nameCol);
+    BodySnapshot body;
+    if (!BuildBodySnapshot(ghostAI, projection, body))
+        return;
 
-    if (CONFIG_BOOL(GetConfigManager(), "ShowBoxESP"))
+    const ImColor nameColor = CONFIG_COLOR(GetConfigManager(), "NameCol");
+    const bool showBox = CONFIG_BOOL(GetConfigManager(), "ShowBoxESP");
+    const bool showSkeleton = CONFIG_BOOL(GetConfigManager(), "ShowSkeleton");
+    const bool showPhoto = CONFIG_BOOL(GetConfigManager(), "ShowPhotoESP");
+
+    DrawName(ghostAI, body, nameColor);
+
+    if (showBox)
     {
-        const ImColor color = CONFIG_COLOR(GetConfigManager(), "ESPColor");
-        const float thickness = CONFIG_FLOAT(GetConfigManager(), "BoxThickness");
-        const int boxType = CONFIG_INT(GetConfigManager(), "BoxType");
+        const ImColor boxColor = CONFIG_COLOR(GetConfigManager(), "ESPColor");
+        const float boxThickness = CONFIG_FLOAT(GetConfigManager(), "BoxThickness");
 
-        switch (boxType)
+        switch (CONFIG_INT(GetConfigManager(), "BoxType"))
         {
-        case 0: Draw2DBox(Utils::GetGhostAI(), color, thickness); break;
-        case 1: DrawCornerBox(Utils::GetGhostAI(), color, thickness); break;
-        case 2: DrawFilledBox(Utils::GetGhostAI(), color, thickness); break;
+        case 0:
+            Draw2DBox(body, boxColor, boxThickness);
+            break;
+        case 1:
+            DrawCornerBox(body, boxColor, boxThickness);
+            break;
+        case 2:
+            DrawFilledBox(body, boxColor, boxThickness);
+            break;
+        default:
+            break;
         }
     }
 
-    if (CONFIG_BOOL(GetConfigManager(), "ShowSkeleton"))
+    if (showSkeleton)
     {
-        DrawSkeleton(Utils::GetGhostAI(),
+        DrawSkeleton(
+            ghostAI,
+            projection,
             CONFIG_COLOR(GetConfigManager(), "SkeletonColor"),
             CONFIG_FLOAT(GetConfigManager(), "SkeletonThickness"));
     }
 
-    if (CONFIG_BOOL(GetConfigManager(), "ShowPhotoESP"))
-    {
-        DrawPhotoESP(Utils::GetGhostAI());
-    }
+    if (showPhoto)
+        DrawPhotoESP(body);
 }
 
 void GhostESP::SetD3D11Device(ID3D11Device* device)
 {
     g_pd3dDevice = device;
+
     if (g_pd3dDevice)
-    {
         LOG_INFO("D3D11 device successfully set for Photo ESP");
-    }
     else
-    {
         LOG_ERROR("Failed to set D3D11 device - device pointer is null");
-    }
 }
 
 void GhostESP::LoadAvailablePhotos()
 {
     availablePhotos.clear();
-    std::string imageDir = Utils::GetPhasmoCheatVDirectory() + "/Images";
+
+    const std::string imageDir =
+        Utils::GetPhasmoCheatVDirectory() + "/Images";
 
     if (!std::filesystem::exists(imageDir))
     {
@@ -142,10 +241,13 @@ void GhostESP::LoadAvailablePhotos()
 
     for (const auto& entry : std::filesystem::directory_iterator(imageDir))
     {
-        if (entry.is_regular_file() &&
-            (entry.path().extension() == ".png" || entry.path().extension() == ".jpg" ||
-                entry.path().extension() == ".jpeg" || entry.path().extension() == ".bmp" ||
-                entry.path().extension() == ".tga"))
+        if (!entry.is_regular_file())
+            continue;
+
+        const auto extension = entry.path().extension();
+        if (extension == ".png" || extension == ".jpg" ||
+            extension == ".jpeg" || extension == ".bmp" ||
+            extension == ".tga")
         {
             availablePhotos.push_back(entry.path().filename().string());
         }
@@ -154,406 +256,321 @@ void GhostESP::LoadAvailablePhotos()
     LOG_INFO("Loaded %d available photos", availablePhotos.size());
 }
 
-bool GhostESP::LoadTexture(const std::string& filename, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height)
+bool GhostESP::LoadTexture(const std::string& filename, ID3D11ShaderResourceView** outSrv, int* outWidth, int* outHeight)
 {
-    auto it = loadedTextures.find(filename);
-    if (it != loadedTextures.end())
+    if (!outSrv || !outWidth || !outHeight)
+        return false;
+
+    *outSrv = nullptr;
+    *outWidth = 0;
+    *outHeight = 0;
+
+    if (const auto it = loadedTextures.find(filename); it != loadedTextures.end())
     {
-        *out_srv = it->second.SRV;
-        *out_width = it->second.Width;
-        *out_height = it->second.Height;
-        return true;
+        *outSrv = it->second.SRV;
+        *outWidth = it->second.Width;
+        *outHeight = it->second.Height;
+        return *outSrv != nullptr;
     }
 
-    ID3D11Device* device = g_pd3dDevice;
-
-    if (!device)
+    if (!g_pd3dDevice)
     {
         LOG_ERROR("D3D11 device is not initialized. Call SetD3D11Device first.");
         return false;
     }
 
-    std::string fullPath = Utils::GetPhasmoCheatVDirectory() + "/Images/" + filename;
+    const std::string fullPath =
+        Utils::GetPhasmoCheatVDirectory() + "/Images/" + filename;
 
-    int width, height, channels;
-    unsigned char* image_data = stbi_load(fullPath.c_str(), &width, &height, &channels, 4);
-    if (!image_data)
+    int width = 0;
+    int height = 0;
+    int channels = 0;
+    unsigned char* imageData =
+        stbi_load(fullPath.c_str(), &width, &height, &channels, 4);
+
+    if (!imageData)
     {
         LOG_ERROR("Failed to load image: %s", filename.c_str());
         return false;
     }
 
-    D3D11_TEXTURE2D_DESC desc;
-    ZeroMemory(&desc, sizeof(desc));
-    desc.Width = width;
-    desc.Height = height;
+    D3D11_TEXTURE2D_DESC desc{};
+    desc.Width = static_cast<UINT>(width);
+    desc.Height = static_cast<UINT>(height);
     desc.MipLevels = 1;
     desc.ArraySize = 1;
     desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     desc.SampleDesc.Count = 1;
-    desc.SampleDesc.Quality = 0;
     desc.Usage = D3D11_USAGE_DEFAULT;
     desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-    desc.CPUAccessFlags = 0;
-    desc.MiscFlags = 0;
 
-    ID3D11Texture2D* pTexture = nullptr;
-    D3D11_SUBRESOURCE_DATA subResource;
-    subResource.pSysMem = image_data;
-    subResource.SysMemPitch = desc.Width * 4;
-    subResource.SysMemSlicePitch = 0;
+    D3D11_SUBRESOURCE_DATA subResource{};
+    subResource.pSysMem = imageData;
+    subResource.SysMemPitch = static_cast<UINT>(width * 4);
 
-    HRESULT hr = device->CreateTexture2D(&desc, &subResource, &pTexture);
-    if (FAILED(hr) || !pTexture)
+    ID3D11Texture2D* texture = nullptr;
+    const HRESULT textureResult =
+        g_pd3dDevice->CreateTexture2D(&desc, &subResource, &texture);
+
+    if (FAILED(textureResult) || !texture)
     {
-        LOG_ERROR("Failed to create D3D11 texture: 0x%08X", hr);
-        stbi_image_free(image_data);
+        LOG_ERROR("Failed to create D3D11 texture: 0x%08X", textureResult);
+        stbi_image_free(imageData);
         return false;
     }
 
-    D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-    ZeroMemory(&srvDesc, sizeof(srvDesc));
-    srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+    srvDesc.Format = desc.Format;
     srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-    srvDesc.Texture2D.MipLevels = desc.MipLevels;
+    srvDesc.Texture2D.MipLevels = 1;
     srvDesc.Texture2D.MostDetailedMip = 0;
 
-    hr = device->CreateShaderResourceView(pTexture, &srvDesc, out_srv);
-    pTexture->Release();
+    const HRESULT srvResult =
+        g_pd3dDevice->CreateShaderResourceView(texture, &srvDesc, outSrv);
 
-    if (FAILED(hr) || !*out_srv)
+    texture->Release();
+    stbi_image_free(imageData);
+
+    if (FAILED(srvResult) || !*outSrv)
     {
-        LOG_ERROR("Failed to create D3D11 shader resource view: 0x%08X", hr);
-        stbi_image_free(image_data);
+        LOG_ERROR("Failed to create D3D11 shader resource view: 0x%08X", srvResult);
         return false;
     }
 
-    TextureData textureData;
-    textureData.SRV = *out_srv;
-    textureData.Width = width;
-    textureData.Height = height;
-    loadedTextures[filename] = textureData;
-
-    stbi_image_free(image_data);
-
-    LOG_DEBUG("Loaded D3D11 texture: %s (%dx%d)", filename.c_str(), width, height);
+    loadedTextures.emplace(filename, TextureData{ *outSrv, width, height });
+    *outWidth = width;
+    *outHeight = height;
     return true;
 }
 
-void GhostESP::DrawPhotoESP(const SDK::GhostAI* ghostAI)
+void GhostESP::DrawPhotoESP(const BodySnapshot& body)
 {
-    if (!ghostAI || !ghostAI->Fields.raycastPoint || !ghostAI->Fields.feetRaycastPoint)
+    if (!body.Valid)
         return;
 
-    int photoType = CONFIG_INT(GetConfigManager(), "PhotoESPType");
-    if (photoType < 0 || photoType >= availablePhotos.size())
-        return;
-
-    const std::string& selectedPhoto = availablePhotos[photoType];
-
-    ID3D11ShaderResourceView* textureSRV = nullptr;
-    int textureWidth = 0, textureHeight = 0;
-
-    if (!LoadTexture(selectedPhoto, &textureSRV, &textureWidth, &textureHeight))
+    const int photoType = CONFIG_INT(GetConfigManager(), "PhotoESPType");
+    if (photoType < 0 ||
+        static_cast<size_t>(photoType) >= availablePhotos.size())
     {
-        LOG_ERROR("Failed to load texture for photo ESP: %s", selectedPhoto.c_str());
         return;
     }
 
-    if (!textureSRV)
+    ID3D11ShaderResourceView* textureSrv = nullptr;
+    int textureWidth = 0;
+    int textureHeight = 0;
+
+    const std::string& selectedPhoto =
+        availablePhotos[static_cast<size_t>(photoType)];
+
+    if (!LoadTexture(selectedPhoto, &textureSrv, &textureWidth, &textureHeight) ||
+        !textureSrv)
     {
-        LOG_ERROR("Texture SRV is null for: %s", selectedPhoto.c_str());
         return;
     }
 
-    SDK::Vector3 top = Utils::GetPosVec3(ghostAI->Fields.raycastPoint);
-    SDK::Vector3 bottom = Utils::GetPosVec3(ghostAI->Fields.feetRaycastPoint);
+    float height = std::fabs(body.TopScreen.Y - body.BottomScreen.Y);
+    float width = height * 0.5f;
 
-    SDK::Vector3 topScreen, bottomScreen;
-    if (!Utils::WTS(top, topScreen) || !Utils::WTS(bottom, bottomScreen))
-        return;
+    width *= CONFIG_FLOAT(GetConfigManager(), "PhotoWidth");
+    height *= CONFIG_FLOAT(GetConfigManager(), "PhotoHeight");
 
-    float height = fabsf(topScreen.Y - bottomScreen.Y);
-    float width = height / 2.0f;
+    const float left = body.BottomScreen.X - width * 0.5f;
+    const float right = body.BottomScreen.X + width * 0.5f;
+    const float top = body.BottomScreen.Y - height;
+    const float bottom = body.BottomScreen.Y;
 
-    float photoWidthMultiplier = CONFIG_FLOAT(GetConfigManager(), "PhotoWidth");
-    float photoHeightMultiplier = CONFIG_FLOAT(GetConfigManager(), "PhotoHeight");
-
-    width = width * photoWidthMultiplier;
-    height = height * photoHeightMultiplier;
-
-    float left = bottomScreen.X - width / 2;
-    float right = bottomScreen.X + width / 2;
-    float imageTop = bottomScreen.Y - height;
-    float imageBottom = bottomScreen.Y;
-
-    auto drawList = ImGui::GetBackgroundDrawList();
-    drawList->AddImage(
-        (void*)textureSRV,
-        ImVec2(left, imageTop),
-        ImVec2(right, imageBottom),
-        ImVec2(0, 0),
-        ImVec2(1, 1),
-        IM_COL32_WHITE
-    );
+    ImGui::GetBackgroundDrawList()->AddImage(
+        textureSrv,
+        ImVec2(left, top),
+        ImVec2(right, bottom),
+        ImVec2(0.0f, 0.0f),
+        ImVec2(1.0f, 1.0f),
+        IM_COL32_WHITE);
 }
 
 void GhostESP::CleanupTextures()
 {
-    for (auto& texture : loadedTextures)
+    for (auto& [name, texture] : loadedTextures)
     {
-        if (texture.second.SRV)
+        if (texture.SRV)
         {
-            texture.second.SRV->Release();
-            texture.second.SRV = nullptr;
+            texture.SRV->Release();
+            texture.SRV = nullptr;
         }
     }
+
     loadedTextures.clear();
-    LOG_INFO("Cleaned up D3D11 textures");
 }
 
-void GhostESP::DrawSkeleton(const SDK::GhostAI* ghostAI, const ImColor& color, float thickness)
+void GhostESP::DrawSkeleton(const SDK::GhostAI* ghostAI, const ProjectionContext& projection, const ImColor& color, float thickness)
 {
-    if (!ghostAI)
-    {
-        LOG_WARN("GhostESP::DrawSkeleton called with null ghostAI pointer");
+    if (!ghostAI || !ghostAI->Fields.currentModel)
         return;
-    }
 
-    auto model = ghostAI->Fields.currentModel;
-    if (!model)
-    {
-        LOG_WARN("GhostESP::DrawSkeleton failed to get model");
-        return;
-    }
-
-    if (!model->Fields.anim) {
-        LOG_WARN("GhostESP::DrawSkeleton failed to get animator");
-        return;
-    }
-
-    auto animator = model->Fields.anim;
+    auto* animator = ghostAI->Fields.currentModel->Fields.anim;
     if (!animator)
-    {
-        LOG_WARN("GhostESP::DrawSkeleton animator pointer is null");
         return;
+
+    BoneScreenCache screenBones{};
+
+    for (const Bone bone : kMainBones)
+    {
+        const auto index = BoneIndex(bone);
+        if (index >= screenBones.size())
+            continue;
+
+        auto* transform =
+            SDK::Animator_GetBoneTransform(
+                animator,
+                bone,
+                nullptr);
+
+        if (!transform)
+            continue;
+
+        auto& cachedBone = screenBones[index];
+        const SDK::Vector3 worldPos = Utils::GetPosVec3(transform);
+
+        cachedBone.Visible =
+            ProjectWorldToScreen(projection, worldPos, cachedBone.Screen) &&
+            cachedBone.Screen.Z > 0.0f;
     }
 
-    auto drawList = ImGui::GetBackgroundDrawList();
+    auto* drawList = ImGui::GetBackgroundDrawList();
 
-    std::unordered_map<SDK::HumanBodyBones, std::pair<SDK::Vector3, bool>> bonePositions;
-
-    for (auto bone : mainBones)
+    for (const auto& [fromBone, toBone] : kMainConnections)
     {
-        SDK::Transform* boneTransform = nullptr;
+        const auto fromIndex = BoneIndex(fromBone);
+        const auto toIndex = BoneIndex(toBone);
 
-        try
-        {
-            boneTransform = SDK::Animator_GetBoneTransform(animator, bone, nullptr);
-        }
-        catch (const std::exception& e)
-        {
-            LOG_ERROR("Exception caught in Animator_GetBoneTransform for bone %d: %s", static_cast<int>(bone), e.what());
+        if (fromIndex >= screenBones.size() || toIndex >= screenBones.size())
             continue;
-        }
-        catch (...)
-        {
-            LOG_ERROR("Unknown exception caught in Animator_GetBoneTransform for bone %d", static_cast<int>(bone));
+
+        const auto& from = screenBones[fromIndex];
+        const auto& to = screenBones[toIndex];
+
+        if (!from.Visible || !to.Visible)
             continue;
-        }
 
-        if (boneTransform)
-        {
-            SDK::Vector3 worldPos = Utils::GetPosVec3(boneTransform);
-            SDK::Vector3 screenPos;
-            bool isOnScreen = Utils::WTS(worldPos, screenPos);
-            bonePositions[bone] = std::make_pair(worldPos, isOnScreen);
-        }
-        else
-        {
-
-        }
+        drawList->AddLine(
+            ImVec2(from.Screen.X, from.Screen.Y),
+            ImVec2(to.Screen.X, to.Screen.Y),
+            color,
+            thickness);
     }
 
-    for (const auto& connection : mainConnections)
+    for (const Bone bone : kMainBones)
     {
-        auto fromBone = connection.first;
-        auto toBone = connection.second;
-
-        if (bonePositions.find(fromBone) == bonePositions.end() ||
-            bonePositions.find(toBone) == bonePositions.end())
-        {
+        const auto index = BoneIndex(bone);
+        if (index >= screenBones.size())
             continue;
-        }
 
-        const auto& fromData = bonePositions[fromBone];
-        const auto& toData = bonePositions[toBone];
+        const auto& cachedBone = screenBones[index];
+        if (!cachedBone.Visible)
+            continue;
 
-        if (fromData.second && toData.second)
-        {
-            SDK::Vector3 fromScreen, toScreen;
-            if (Utils::WTS(fromData.first, fromScreen) &&
-                Utils::WTS(toData.first, toScreen))
-            {
-                if (fromScreen.Z > 0 && toScreen.Z > 0)
-                {
-                    drawList->AddLine(
-                        ImVec2(fromScreen.X, fromScreen.Y),
-                        ImVec2(toScreen.X, toScreen.Y),
-                        color,
-                        thickness
-                    );
-                }
-            }
-        }
-    }
-
-    for (const auto& bonePair : bonePositions)
-    {
-        if (bonePair.second.second)
-        {
-            SDK::Vector3 screenPos;
-            if (Utils::WTS(bonePair.second.first, screenPos) &&
-                screenPos.Z > 0)
-            {
-                drawList->AddCircleFilled(
-                    ImVec2(screenPos.X, screenPos.Y),
-                    thickness * 0.8f,
-                    color
-                );
-            }
-        }
+        drawList->AddCircleFilled(
+            ImVec2(cachedBone.Screen.X, cachedBone.Screen.Y),
+            thickness * 0.8f,
+            color);
     }
 }
 
-void GhostESP::Draw2DBox(const SDK::GhostAI* ghostAI, const ImColor& color, float thickness)
+void GhostESP::Draw2DBox(const BodySnapshot& body, const ImColor& color, float thickness)
 {
-    if (!ghostAI || !ghostAI->Fields.raycastPoint || !ghostAI->Fields.feetRaycastPoint)
+    if (!body.Valid)
         return;
 
-    SDK::Vector3 top = Utils::GetPosVec3(ghostAI->Fields.raycastPoint);
-    SDK::Vector3 bottom = Utils::GetPosVec3(ghostAI->Fields.feetRaycastPoint);
-
-    SDK::Vector3 topScreen, bottomScreen;
-    if (!Utils::WTS(top, topScreen) || !Utils::WTS(bottom, bottomScreen))
-        return;
-
-    float height = fabsf(topScreen.Y - bottomScreen.Y);
-    float width = height / 2.0f;
+    const float height = std::fabs(body.TopScreen.Y - body.BottomScreen.Y);
+    const float width = height * 0.5f;
 
     ImGui::GetBackgroundDrawList()->AddRect(
-        ImVec2(bottomScreen.X - width / 2, topScreen.Y),
-        ImVec2(bottomScreen.X + width / 2, bottomScreen.Y),
-        color, 0.0f, 0, thickness
-    );
+        ImVec2(body.BottomScreen.X - width * 0.5f, body.TopScreen.Y),
+        ImVec2(body.BottomScreen.X + width * 0.5f, body.BottomScreen.Y),
+        color,
+        0.0f,
+        0,
+        thickness);
 }
 
-void GhostESP::DrawCornerBox(const SDK::GhostAI* ghostAI, const ImColor& color, float thickness)
+void GhostESP::DrawCornerBox(const BodySnapshot& body, const ImColor& color, float thickness)
 {
-    if (!ghostAI || !ghostAI->Fields.raycastPoint || !ghostAI->Fields.feetRaycastPoint)
+    if (!body.Valid)
         return;
 
-    SDK::Vector3 top = Utils::GetPosVec3(ghostAI->Fields.raycastPoint);
-    SDK::Vector3 bottom = Utils::GetPosVec3(ghostAI->Fields.feetRaycastPoint);
+    const float height = std::fabs(body.TopScreen.Y - body.BottomScreen.Y);
+    const float width = height * 0.5f;
+    const float lineWidth = width / 3.0f;
+    const float lineHeight = height / 3.0f;
 
-    SDK::Vector3 topScreen, bottomScreen;
-    if (!Utils::WTS(top, topScreen) || !Utils::WTS(bottom, bottomScreen))
-        return;
+    const float left = body.BottomScreen.X - width * 0.5f;
+    const float right = body.BottomScreen.X + width * 0.5f;
+    const float top = body.TopScreen.Y;
+    const float bottom = body.BottomScreen.Y;
 
-    float height = fabsf(topScreen.Y - bottomScreen.Y);
-    float width = height / 2.0f;
+    auto* draw = ImGui::GetBackgroundDrawList();
 
-    float lineW = width / 3;
-    float lineH = height / 3;
+    draw->AddLine(ImVec2(left, top), ImVec2(left + lineWidth, top), color, thickness);
+    draw->AddLine(ImVec2(left, top), ImVec2(left, top + lineHeight), color, thickness);
 
-    float left = bottomScreen.X - width / 2;
-    float right = bottomScreen.X + width / 2;
-    float topY = topScreen.Y;
-    float bottomY = bottomScreen.Y;
+    draw->AddLine(ImVec2(right, top), ImVec2(right - lineWidth, top), color, thickness);
+    draw->AddLine(ImVec2(right, top), ImVec2(right, top + lineHeight), color, thickness);
 
-    auto draw = ImGui::GetBackgroundDrawList();
+    draw->AddLine(ImVec2(left, bottom), ImVec2(left + lineWidth, bottom), color, thickness);
+    draw->AddLine(ImVec2(left, bottom), ImVec2(left, bottom - lineHeight), color, thickness);
 
-    draw->AddLine(ImVec2(left, topY), ImVec2(left + lineW, topY), color, thickness);
-    draw->AddLine(ImVec2(left, topY), ImVec2(left, topY + lineH), color, thickness);
-
-    draw->AddLine(ImVec2(right, topY), ImVec2(right - lineW, topY), color, thickness);
-    draw->AddLine(ImVec2(right, topY), ImVec2(right, topY + lineH), color, thickness);
-
-    draw->AddLine(ImVec2(left, bottomY), ImVec2(left + lineW, bottomY), color, thickness);
-    draw->AddLine(ImVec2(left, bottomY), ImVec2(left, bottomY - lineH), color, thickness);
-
-    draw->AddLine(ImVec2(right, bottomY), ImVec2(right - lineW, bottomY), color, thickness);
-    draw->AddLine(ImVec2(right, bottomY), ImVec2(right, bottomY - lineH), color, thickness);
+    draw->AddLine(ImVec2(right, bottom), ImVec2(right - lineWidth, bottom), color, thickness);
+    draw->AddLine(ImVec2(right, bottom), ImVec2(right, bottom - lineHeight), color, thickness);
 }
 
-void GhostESP::DrawFilledBox(const SDK::GhostAI* ghostAI, const ImColor& color, float thickness)
+void GhostESP::DrawFilledBox(const BodySnapshot& body, const ImColor& color, float thickness)
 {
-    if (!ghostAI || !ghostAI->Fields.raycastPoint || !ghostAI->Fields.feetRaycastPoint)
+    if (!body.Valid)
         return;
 
-    SDK::Vector3 top = Utils::GetPosVec3(ghostAI->Fields.raycastPoint);
-    SDK::Vector3 bottom = Utils::GetPosVec3(ghostAI->Fields.feetRaycastPoint);
+    const float height = std::fabs(body.TopScreen.Y - body.BottomScreen.Y);
+    const float width = height * 0.5f;
 
-    SDK::Vector3 topScreen, bottomScreen;
-    if (!Utils::WTS(top, topScreen) || !Utils::WTS(bottom, bottomScreen))
-        return;
+    const ImVec2 boxMin(body.BottomScreen.X - width * 0.5f,
+        body.TopScreen.Y);
 
-    float height = fabsf(topScreen.Y - bottomScreen.Y);
-    float width = height / 2.0f;
+    const ImVec2 boxMax(body.BottomScreen.X + width * 0.5f,
+        body.BottomScreen.Y);
 
-    ImGui::GetBackgroundDrawList()->AddRectFilled(
-        ImVec2(bottomScreen.X - width / 2, topScreen.Y),
-        ImVec2(bottomScreen.X + width / 2, bottomScreen.Y),
-        ImColor(color.Value.x, color.Value.y, color.Value.z, 0.2f)
-    );
+    auto* draw = ImGui::GetBackgroundDrawList();
 
-    ImGui::GetBackgroundDrawList()->AddRect(
-        ImVec2(bottomScreen.X - width / 2, topScreen.Y),
-        ImVec2(bottomScreen.X + width / 2, bottomScreen.Y),
-        color, 0.0f, 0, thickness
-    );
+    draw->AddRectFilled(boxMin, boxMax,
+        ImColor(color.Value.x, color.Value.y, color.Value.z, 0.2f));
+    draw->AddRect(boxMin, boxMax, color, 0.0f, 0, thickness);
 }
 
-void GhostESP::DrawName(const SDK::GhostAI* ghostAI, const ImColor& color)
+void GhostESP::DrawName(const SDK::GhostAI* ghostAI, const BodySnapshot& body, const ImColor& color)
 {
-    if (!ghostAI || !ghostAI->Fields.raycastPoint || !ghostAI->Fields.feetRaycastPoint ||
-        !ghostAI->Fields.GhostInfo || !ghostAI->Fields.GhostInfo->Fields.GhostTraits.Name)
+    if (!body.Valid || !ghostAI || !ghostAI->Fields.GhostInfo)
         return;
 
-    SDK::Vector3 top = Utils::GetPosVec3(ghostAI->Fields.raycastPoint);
-    SDK::Vector3 bottom = Utils::GetPosVec3(ghostAI->Fields.feetRaycastPoint);
-
-    SDK::Vector3 topScreen, bottomScreen;
-    if (!Utils::WTS(top, topScreen) || !Utils::WTS(bottom, bottomScreen))
+    const auto& traits = ghostAI->Fields.GhostInfo->Fields.GhostTraits;
+    if (!traits.Name)
         return;
 
-    float centerX = bottomScreen.X;
+    const std::string name = Utils::UnityStrToSysStr(*traits.Name);
+    const std::string type = Utils::GhostEnumToStr(traits.GhostType_);
+    const std::string text = type + " • " + name;
 
-    std::string nameStr =
-        Utils::UnityStrToSysStr(*ghostAI->Fields.GhostInfo->Fields.GhostTraits.Name);
-    std::string typeStr =
-        Utils::GhostEnumToStr(ghostAI->Fields.GhostInfo->Fields.GhostTraits.GhostType_);
-
-    std::string fullText = typeStr + " • " + nameStr;
-    const char* name = fullText.c_str();
-
-    ImVec2 textSize = ImGui::CalcTextSize(name);
-
-    float textX = centerX - textSize.x * 0.5f;
-    float textY = topScreen.Y - textSize.y - 2.0f;
+    const ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
 
     ImGui::GetBackgroundDrawList()->AddText(
-        ImVec2(textX, textY),
-        color,
-        name
-    );
+        ImVec2(
+            body.BottomScreen.X - textSize.x * 0.5f,
+            body.TopScreen.Y - textSize.y - 2.0f),
+        color, text.c_str());
 }
 
 void GhostESP::OnMenuRender()
 {
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(6, 5));
 
-    auto MakeLabel = [](const char* code, const char* id)
+    const auto makeLabel = [](const char* code, const char* id)
         {
             return std::string(LANG(code)) + "##" + id;
         };
@@ -574,8 +591,10 @@ void GhostESP::OnMenuRender()
     constexpr auto colorEditFlags = ImGuiColorEditFlags_NoInputs;
 
     ImColor nameColor = CONFIG_COLOR(GetConfigManager(), "NameCol");
-    if (ImGui::ColorEdit4(MakeLabel("NameColor", "ghostESP").c_str(),
-        reinterpret_cast<float*>(&nameColor.Value), colorEditFlags))
+    if (ImGui::ColorEdit4(
+        makeLabel("NameColor", "ghostESP").c_str(),
+        reinterpret_cast<float*>(&nameColor.Value),
+        colorEditFlags))
     {
         SET_CONFIG_VALUE(GetConfigManager(), "NameCol", ImColor, nameColor);
     }
@@ -583,30 +602,43 @@ void GhostESP::OnMenuRender()
     ImGui::Separator();
 
     bool showBoxESP = CONFIG_BOOL(GetConfigManager(), "ShowBoxESP");
-    if (ImGui::Checkbox(MakeLabel("ShowBoxESP", "ghostESP").c_str(), &showBoxESP))
+    if (ImGui::Checkbox(
+        makeLabel("ShowBoxESP", "ghostESP").c_str(),
+        &showBoxESP))
+    {
         SET_CONFIG_VALUE(GetConfigManager(), "ShowBoxESP", bool, showBoxESP);
+    }
 
     if (showBoxESP)
     {
-        const char* boxTypes[] = { LANG("BoxType2D"), LANG("BoxTypeCorner"), LANG("BoxTypeFilled") };
-        int boxType = CONFIG_INT(GetConfigManager(), "BoxType");
+        const char* boxTypes[] = {
+            LANG("BoxType2D"),
+            LANG("BoxTypeCorner"),
+            LANG("BoxTypeFilled")
+        };
 
-        if (ImGui::Combo(MakeLabel("BoxType", "ghostESP").c_str(),
-            &boxType, boxTypes, IM_ARRAYSIZE(boxTypes)))
+        int boxType = CONFIG_INT(GetConfigManager(), "BoxType");
+        if (ImGui::Combo(
+            makeLabel("BoxType", "ghostESP").c_str(),
+            &boxType,
+            boxTypes, IM_ARRAYSIZE(boxTypes)))
         {
             SET_CONFIG_VALUE(GetConfigManager(), "BoxType", int, boxType);
         }
 
         ImColor espColor = CONFIG_COLOR(GetConfigManager(), "ESPColor");
-        if (ImGui::ColorEdit4(MakeLabel("Color", "ghostESP").c_str(),
+        if (ImGui::ColorEdit4(
+            makeLabel("Color", "ghostESP").c_str(),
             reinterpret_cast<float*>(&espColor.Value), colorEditFlags))
         {
             SET_CONFIG_VALUE(GetConfigManager(), "ESPColor", ImColor, espColor);
         }
 
         float boxThickness = CONFIG_FLOAT(GetConfigManager(), "BoxThickness");
-        if (ImGui::SliderFloat(MakeLabel("BoxThickness", "ghostESP").c_str(),
-            &boxThickness, 0.5f, 5.0f))
+        if (ImGui::SliderFloat(
+            makeLabel("BoxThickness", "ghostESP").c_str(),
+            &boxThickness,
+            0.5f, 5.0f))
         {
             SET_CONFIG_VALUE(GetConfigManager(), "BoxThickness", float, boxThickness);
         }
@@ -615,44 +647,64 @@ void GhostESP::OnMenuRender()
     ImGui::Separator();
 
     bool showSkeleton = CONFIG_BOOL(GetConfigManager(), "ShowSkeleton");
-    if (ImGui::Checkbox(MakeLabel("ShowSkeleton", "ghostESP").c_str(), &showSkeleton))
+    if (ImGui::Checkbox(
+        makeLabel("ShowSkeleton", "ghostESP").c_str(), &showSkeleton))
+    {
         SET_CONFIG_VALUE(GetConfigManager(), "ShowSkeleton", bool, showSkeleton);
+    }
 
     if (showSkeleton)
     {
         ImColor skeletonColor = CONFIG_COLOR(GetConfigManager(), "SkeletonColor");
-        if (ImGui::ColorEdit4(MakeLabel("SkeletonColor", "ghostESP").c_str(),
+        if (ImGui::ColorEdit4(
+            makeLabel("SkeletonColor", "ghostESP").c_str(),
             reinterpret_cast<float*>(&skeletonColor.Value), colorEditFlags))
         {
             SET_CONFIG_VALUE(GetConfigManager(), "SkeletonColor", ImColor, skeletonColor);
         }
 
-        float skeletonThickness = CONFIG_FLOAT(GetConfigManager(), "SkeletonThickness");
-        if (ImGui::SliderFloat(MakeLabel("SkeletonThickness", "ghostESP").c_str(),
-            &skeletonThickness, 0.5f, 3.0f))
+        float skeletonThickness =
+            CONFIG_FLOAT(GetConfigManager(), "SkeletonThickness");
+        if (ImGui::SliderFloat(
+            makeLabel("SkeletonThickness", "ghostESP").c_str(),
+            &skeletonThickness,
+            0.5f, 3.0f))
         {
-            SET_CONFIG_VALUE(GetConfigManager(), "SkeletonThickness", float, skeletonThickness);
+            SET_CONFIG_VALUE(
+                GetConfigManager(),
+                "SkeletonThickness",
+                float,
+                skeletonThickness);
         }
     }
 
     ImGui::Separator();
 
     bool showPhotoESP = CONFIG_BOOL(GetConfigManager(), "ShowPhotoESP");
-    if (ImGui::Checkbox(MakeLabel("ShowPhotoESP", "ghostESP").c_str(), &showPhotoESP))
+    if (ImGui::Checkbox(
+        makeLabel("ShowPhotoESP", "ghostESP").c_str(), &showPhotoESP))
+    {
         SET_CONFIG_VALUE(GetConfigManager(), "ShowPhotoESP", bool, showPhotoESP);
+    }
 
     if (showPhotoESP)
     {
         float photoWidth = CONFIG_FLOAT(GetConfigManager(), "PhotoWidth");
-        if (ImGui::SliderFloat(MakeLabel("PhotoWidth", "ghostESP").c_str(),
-            &photoWidth, 0.1f, 3.0f, "%.2f"))
+        if (ImGui::SliderFloat(
+            makeLabel("PhotoWidth", "ghostESP").c_str(),
+            &photoWidth,
+            0.1f,
+            3.0f, "%.2f"))
         {
             SET_CONFIG_VALUE(GetConfigManager(), "PhotoWidth", float, photoWidth);
         }
 
         float photoHeight = CONFIG_FLOAT(GetConfigManager(), "PhotoHeight");
-        if (ImGui::SliderFloat(MakeLabel("PhotoHeight", "ghostESP").c_str(),
-            &photoHeight, 0.1f, 3.0f, "%.2f"))
+        if (ImGui::SliderFloat(
+            makeLabel("PhotoHeight", "ghostESP").c_str(),
+            &photoHeight,
+            0.1f,
+            3.0f, "%.2f"))
         {
             SET_CONFIG_VALUE(GetConfigManager(), "PhotoHeight", float, photoHeight);
         }
@@ -662,21 +714,22 @@ void GhostESP::OnMenuRender()
             std::vector<const char*> photoNames;
             photoNames.reserve(availablePhotos.size());
 
-            for (auto& p : availablePhotos)
-                photoNames.push_back(p.c_str());
+            for (const auto& photo : availablePhotos)
+                photoNames.push_back(photo.c_str());
 
             int photoType = CONFIG_INT(GetConfigManager(), "PhotoESPType");
-            if (ImGui::Combo(MakeLabel("PhotoType", "ghostESP").c_str(),
-                &photoType, photoNames.data(), (int)photoNames.size()))
+            if (ImGui::Combo(
+                makeLabel("PhotoType", "ghostESP").c_str(),
+                &photoType,
+                photoNames.data(),
+                static_cast<int>(photoNames.size())))
             {
                 SET_CONFIG_VALUE(GetConfigManager(), "PhotoESPType", int, photoType);
             }
         }
 
-        if (ImGui::Button(MakeLabel("RefreshImages", "ghostESP").c_str(), ImVec2(140, 24)))
-        {
+        if (ImGui::Button(makeLabel("RefreshImages", "ghostESP").c_str(), ImVec2(140, 24)))
             LoadAvailablePhotos();
-        }
     }
 
     ImGui::PopStyleVar();

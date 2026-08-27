@@ -1659,6 +1659,7 @@ SDK::GameObject* Utils::GameObject_Find(std::string name)
 bool Utils::IsInGame()
 {
 	bool inGame = 
+		GetActiveSceneName() != "Main_Menu None" &&
 		SDK::GameController_StaticFields->instance && 
 		SDK::GameController_StaticFields->instance->Fields.allPlayersAreConnected &&
 		Utils::GetGhostAI() &&
@@ -1708,4 +1709,15 @@ bool Utils::IsObjectInFront(const SDK::Vector3& targetPos,
 		dir.Z * referenceForward.Z;
 
 	return dot > 0.0f;
+}
+
+int32_t Utils::GetGhostTypeInt()
+{
+	if (!GetGhostAI())
+		return -1;
+
+	if (!GetGhostAI()->Fields.GhostInfo)
+		return -1;
+
+	return static_cast<int32_t>(GetGhostAI()->Fields.GhostInfo->Fields.GhostTraits.GhostType_);
 }

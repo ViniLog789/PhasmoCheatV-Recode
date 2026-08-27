@@ -39,8 +39,6 @@ std::vector<SDK::Crucifix*> CrucifixESP::getCruxifixs()
 		crucifixs.push_back(t_crucifix);
 	}
 
-	LOG_INFO(crucifixs.size());
-
 	return crucifixs;
 }
 
@@ -63,8 +61,6 @@ void CrucifixESP::OnRender()
 		auto transform = SDK::Component_Get_Transform(reinterpret_cast<SDK::Component*>(crucifix), nullptr);
 		if (!transform)
 			continue;
-
-		LOG_INFO("Transform");
 
 		auto vec3Pos = SDK::Transform_Get_Position(transform, nullptr);
 

@@ -49,6 +49,8 @@ bool AudioModifier::SetVolume(SDK::AudioSource* audio, float volume, float* last
 
 void AudioModifier::AudioModifierHandler()
 {
+	if (!IsActive()) return;
+
 	SDK::Object* gameObject = reinterpret_cast<SDK::Object*>(
 		SDK::Component_Get_GameObject(
 			reinterpret_cast<SDK::Component*>(cachedAzure),

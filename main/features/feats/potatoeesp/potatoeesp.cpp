@@ -5,20 +5,36 @@ using namespace PhasmoCheatV::Features::Visuals;
 PotatoeEsp::PotatoeEsp() : FeatureCore(LANG("PotatoeESP_Header"), TYPE_VISUALS)
 {
     DECLARE_CONFIG(GetConfigManager(), "Color", ImColor, ImColor(255, 255, 255, 255));
-} 
+}
+
+void PotatoeEsp::OnActivate()
+{
+	cachedPotatoeTransform = Utils::GetPotatoe();
+}
+
+void PotatoeEsp::OnDeactivate()
+{
+	cachedPotatoeTransform = nullptr;
+}
 
 void PotatoeEsp::OnRender()
 {
-    if (!IsActive() || Utils::GetMap()->Fields.uniqueMapID != 4 || !Utils::GetGhostAI())
+    if (!IsActive() || !Utils::GetMap() 
+        || Utils::GetMap()->Fields.uniqueMapID != 4 || !Utils::GetGhostAI())
+    {
         return;
+    }
 
-    SDK::Transform* potatoeTransform = Utils::GetPotatoe();
-    if (!potatoeTransform)
-        return;
+	if (!cachedPotatoeTransform)
+	{
+		cachedPotatoeTransform = Utils::GetPotatoe();
+		if (!cachedPotatoeTransform)
+			return;
+	}
 
     const ImColor color = CONFIG_COLOR(GetConfigManager(), "Color");
 
-    SDK::Vector3 worldPos = Utils::GetPosVec3(potatoeTransform);
+    SDK::Vector3 worldPos = Utils::GetPosVec3(cachedPotatoeTransform);
 
     SDK::Vector3 screenPos;
     if (!Utils::WTS(worldPos, screenPos) || screenPos.Z <= 0)

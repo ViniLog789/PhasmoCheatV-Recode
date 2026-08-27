@@ -17,7 +17,9 @@ GhostPanel::GhostPanel() : FeatureCore(LANG("GhostPanel_Header"), TYPE_VISUALS)
     DECLARE_CONFIG(GetConfigManager(), "HideBansheeTarget", bool, false);
     DECLARE_CONFIG(GetConfigManager(), "HideCurrentSpeed", bool, false);
     DECLARE_CONFIG(GetConfigManager(), "HideHuntDuration", bool, false);
-    DECLARE_CONFIG(GetConfigManager(), "RowOrder", std::string, "Name;Type;Age;State;Mimic;Banshee;Evidence;Room;Location;GhostCurrentSpeed");
+    DECLARE_CONFIG(GetConfigManager(), "HideGhostSmudged", bool, false);
+    DECLARE_CONFIG(GetConfigManager(), "HideGhostAfterHunting", bool, false);
+    DECLARE_CONFIG(GetConfigManager(), "RowOrder", std::string, "Name;Type;Age;State;Mimic;Banshee;Evidence;Room;Location;GhostCurrentSpeed;HuntDuration;GhostSmudged;GhostAfterHunting;");
 }
 
 void GhostPanel::LoadRowOrder()
@@ -35,7 +37,7 @@ void GhostPanel::LoadRowOrder()
     }
 
     if (m_rowOrder.empty())
-        m_rowOrder = { "Name", "Type", "Age", "State", "Mimic", "Banshee", "Evidence", "Room", "Location", "GhostCurrentSpeed", "HuntDuration" };
+        m_rowOrder = { "Name", "Type", "Age", "State", "Mimic", "Banshee", "Evidence", "Room", "Location", "GhostCurrentSpeed", "HuntDuration", "GhostSmudged", "GhostAfterHunting" };
 }
 
 void GhostPanel::SaveRowOrder()
@@ -135,7 +137,7 @@ void GhostPanel::OnRender()
 {
     if (!IsActive()) return;
 
-    if (!Utils::GetGhostAI() || !Utils::GetGhostAI()->Fields.GhostInfo)
+    if (!Utils::IsInGame())
         return;
 
     if (!m_rowOrderLoaded)
@@ -195,6 +197,10 @@ void GhostPanel::OnRender()
         rows.push_back({ "GhostCurrentSpeed", LANG("GhostCurrentSpeed"), std::format("{:.1f} units/s", SDK::NavMeshAgent_get_speed(ghostNavMesh, nullptr)), CONFIG_BOOL(GetConfigManager(), "HideCurrentSpeed") }); // unity units/seconds
     if (Globals::isHunting && InGame::huntingState && InGame::huntingState->Fields.huntDurationTimer > 0)
         rows.push_back({ "HuntDuration", LANG("GhostHuntDuration"), std::format("{:.1f} sec", InGame::huntingState->Fields.huntDurationTimer), CONFIG_BOOL(GetConfigManager(), "HideHuntDuration")});
+	if (secondsSinceSmudge > 0.f)
+		rows.push_back({ "GhostSmudged", LANG("GhostSmudged"), std::format("{:.1f} sec", secondsSinceSmudge.load()), CONFIG_BOOL(GetConfigManager(), "HideGhostSmudged") });
+	if (ghostAfterHunting > 0.f)
+		rows.push_back({ "GhostAfterHunting", LANG("GhostAfterHunting"), std::format("{:.1f} sec", ghostAfterHunting.load()), CONFIG_BOOL(GetConfigManager(), "HideGhostAfterHunting") });
 
     DrawReorderableRows(rows);
 
@@ -277,6 +283,14 @@ void GhostPanel::OnMenuRender()
             bool hideHuntDuration = CONFIG_BOOL(GetConfigManager(), "HideHuntDuration");
             if (ImGui::Checkbox(LANG("HideHuntDuration"), &hideHuntDuration))
                 SET_CONFIG_VALUE(GetConfigManager(), "HideHuntDuration", bool, hideHuntDuration);
+
+			bool hideGhostSmudged = CONFIG_BOOL(GetConfigManager(), "HideGhostSmudged");
+			if (ImGui::Checkbox(LANG("HideGhostSmudged"), &hideGhostSmudged))
+				SET_CONFIG_VALUE(GetConfigManager(), "HideGhostSmudged", bool, hideGhostSmudged);
+
+			bool hideGhostAfterHunting = CONFIG_BOOL(GetConfigManager(), "HideGhostAfterHunting");
+			if (ImGui::Checkbox(LANG("HideGhostAfterHunting"), &hideGhostAfterHunting))
+				SET_CONFIG_VALUE(GetConfigManager(), "HideGhostAfterHunting", bool, hideGhostAfterHunting);
         }
     }
 
@@ -305,4 +319,33 @@ std::string GhostPanel::GetGhostEvidenceString()
     return evidence;
 }
 
-//todo: public bool ഩദഠപണഡറപമ (0xFC); // delayedBySmudgeStick + hook on WaitForSeconds = timer smudge stick; hook StopHuntingForTime = ghost is smudged ?
+void GhostPanel::GhostTimerHook(float seconds, int code)
+{
+    std::atomic<float>* timer = nullptr;
+
+    if (code == 1)
+        timer = &secondsSinceSmudge;
+    else if (code == 2)
+        timer = &ghostAfterHunting;
+    else
+        return;
+
+    std::thread([timer, seconds]()
+        {
+            auto remaining = seconds;
+
+            while (remaining > 0.0f)
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+                remaining -= 0.1f;
+
+                if (remaining < 0.0f)
+                    remaining = 0.0f;
+
+                timer->store(remaining);
+            }
+
+            timer->store(0.0f);
+        }).detach();
+}

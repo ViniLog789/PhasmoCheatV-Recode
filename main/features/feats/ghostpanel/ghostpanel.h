@@ -14,6 +14,7 @@ namespace PhasmoCheatV::Features::Visuals
 		void OnRender() override;
 		void OnMenuRender() override;
 		void DrawHiddenValue(float width = 120.0f, float height = 18.0f);
+		void GhostTimerHook(float seconds, int code); // code 1 - smudged, code 2 - hunting cooldown
 
 	private:
 		static std::string GetGhostEvidenceString();
@@ -30,5 +31,8 @@ namespace PhasmoCheatV::Features::Visuals
 		void LoadRowOrder();
 		void SaveRowOrder();
 		void DrawReorderableRows(std::vector<RowDef>& rows);
+
+		std::atomic<float> secondsSinceSmudge{ 0.0f };
+		std::atomic<float> ghostAfterHunting{ 0.0f };
 	};
 }

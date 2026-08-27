@@ -2,6 +2,33 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="libs\detours\src\detours.cpp" />
+    <ClCompile Include="libs\detours\src\disasm.cpp" />
+    <ClCompile Include="libs\detours\src\image.cpp" />
+    <ClCompile Include="libs\detours\src\modules.cpp" />
+    <ClCompile Include="libs\discordrpc\src\connection_win.cpp" />
+    <ClCompile Include="libs\discordrpc\src\discord_register_win.cpp" />
+    <ClCompile Include="libs\discordrpc\src\discord_rpc.cpp" />
+    <ClCompile Include="libs\discordrpc\src\dllmain.cpp" />
+    <ClCompile Include="libs\discordrpc\src\rpc_connection.cpp" />
+    <ClCompile Include="libs\discordrpc\src\serialization.cpp" />
+    <ClCompile Include="libs\il2cpp\il2cpp.cpp" />
+    <ClCompile Include="libs\imgui\imgui.cpp" />
+    <ClCompile Include="libs\imgui\imgui_demo.cpp" />
+    <ClCompile Include="libs\imgui\imgui_draw.cpp" />
+    <ClCompile Include="libs\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="libs\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="libs\imgui\imgui_tables.cpp" />
+    <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="libs\imgui\misc\cpp\imgui_stdlib.cpp" />
+    <ClCompile Include="libs\imgui\misc\fonts\binary_to_compressed_c.cpp" />
+    <ClCompile Include="libs\miniz\miniz.c" />
+    <ClCompile Include="libs\miniz\miniz_tdef.c" />
+    <ClCompile Include="libs\miniz\miniz_tinfl.c" />
+    <ClCompile Include="libs\miniz\miniz_zip.c" />
+    <ClCompile Include="libs\nlohmann\src\modules\json.cppm" />
+    <ClCompile Include="libs\z85\src\z85.c" />
+    <ClCompile Include="libs\z85\src\z85_impl.cpp" />
     <ClCompile Include="loader\entry.cpp" />
     <ClCompile Include="loader\proxy.cpp" />
     <ClCompile Include="main\config\config.cpp" />
@@ -18,11 +45,15 @@
     <ClCompile Include="main\features\feats\awesp\awesp.cpp" />
     <ClCompile Include="main\features\feats\cosmeticsunlocker\cosmeticunlocker.cpp" />
     <ClCompile Include="main\features\feats\crosshairmod\crosshairmod.cpp" />
+    <ClCompile Include="main\features\feats\crucifixesp\crucifixesp.cpp" />
+    <ClCompile Include="main\features\feats\crucifixmod\crucifixmod.cpp" />
     <ClCompile Include="main\features\feats\customlooklimits\customlooklimits.cpp" />
     <ClCompile Include="main\features\feats\curseditemscontroll\curseditemscontroll.cpp" />
     <ClCompile Include="main\features\feats\custname\customname.cpp" />
     <ClCompile Include="main\features\feats\custspeed\customspeed.cpp" />
     <ClCompile Include="main\features\feats\gamespeed\gamespeed.cpp" />
+    <ClCompile Include="main\features\feats\ghostgps\ghostgps.cpp" />
+    <ClCompile Include="main\features\feats\soundboard\soundboard.cpp" />
     <ClCompile Include="main\features\feats\spinbot\spinbot.cpp" />
     <ClCompile Include="main\features\feats\ghostspin\ghostspin.cpp" />
     <ClCompile Include="main\features\feats\ghosthandstand\ghosthandstand.cpp" />
@@ -53,6 +84,7 @@
     <ClCompile Include="main\features\feats\showmic\showmic.cpp" />
     <ClCompile Include="main\features\feats\skiplayeranim\skiplayeranim.cpp" />
     <ClCompile Include="main\features\feats\spiritboxalw\spiritboxalw.cpp" />
+    <ClCompile Include="main\features\feats\staminapanel\staminapanel.cpp" />
     <ClCompile Include="main\features\feats\vanbuttonmod\vanbuttonmod.cpp" />
     <ClCompile Include="main\features\feats\mapmod\mapmodifier.cpp" />
     <ClCompile Include="main\features\feats\noclip\noclip.cpp" />
@@ -75,6 +107,7 @@
     <ClCompile Include="main\hooks\Application_CallLogCallback.cpp" />
     <ClCompile Include="main\hooks\AWDoll_Awake.cpp" />
     <ClCompile Include="main\hooks\CosmeticsUnlocker.cpp" />
+    <ClCompile Include="main\hooks\Crucifix_GhostUse.cpp" />
     <ClCompile Include="main\hooks\DNAEvidence_GrabbedNetworked.cpp" />
     <ClCompile Include="main\hooks\DNAEvidence_Start.cpp" />
     <ClCompile Include="main\hooks\EMFData_UpdateNightMareGraph.cpp" />
@@ -90,7 +123,9 @@
     <ClCompile Include="main\hooks\GhostInfo_SyncEvidence.cpp" />
     <ClCompile Include="main\hooks\GhostInfo_SyncValuesNetworked.cpp" />
     <ClCompile Include="main\hooks\HandCamera_MoveNext.cpp" />
+    <ClCompile Include="main\hooks\HuntingState_ctor.cpp" />
     <ClCompile Include="main\hooks\Jackalope_Awake.cpp" />
+    <ClCompile Include="main\hooks\JournalController_SendState.cpp" />
     <ClCompile Include="main\hooks\Key_GrabbedKey.cpp" />
     <ClCompile Include="main\hooks\Key_Start.cpp" />
     <ClCompile Include="main\hooks\LevelSelectionManager_Start.cpp" />
@@ -101,6 +136,8 @@
     <ClCompile Include="main\hooks\LightningController_Start.cpp" />
     <ClCompile Include="main\hooks\LightSwitch_Start.cpp" />
     <ClCompile Include="main\hooks\PhotonView_RPC.cpp" />
+    <ClCompile Include="main\hooks\Player_NotifyOfDeathEnd.cpp" />
+    <ClCompile Include="main\hooks\Player_NotifyOfDeathStart.cpp" />
     <ClCompile Include="main\hooks\Player_Start.cpp" />
     <ClCompile Include="main\hooks\Player_BeginDeathSequence.cpp" />
     <ClCompile Include="main\hooks\RewardManager_Awake.cpp" />
@@ -129,43 +166,7 @@
     <ClCompile Include="main\menu\menu.cpp" />
     <ClCompile Include="main\menu\renderer.cpp" />
     <ClCompile Include="main\utils\utils.cpp" />
-    <ClCompile Include="main\features\feats\staminapanel\staminapanel.cpp" />
-    <ClCompile Include="libs\il2cpp\il2cpp.cpp" />
-    <ClCompile Include="libs\imgui\imgui.cpp" />
-    <ClCompile Include="libs\imgui\imgui_demo.cpp" />
-    <ClCompile Include="libs\imgui\imgui_draw.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="libs\imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="libs\imgui\imgui_tables.cpp" />
-    <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="libs\miniz\miniz.c" />
-    <ClCompile Include="libs\z85\src\z85_impl.cpp" />
-    <ClCompile Include="libs\imgui\misc\cpp\imgui_stdlib.cpp" />
-    <ClCompile Include="libs\imgui\misc\fonts\binary_to_compressed_c.cpp" />
-    <ClCompile Include="libs\miniz\miniz_tdef.c" />
-    <ClCompile Include="libs\miniz\miniz_tinfl.c" />
-    <ClCompile Include="libs\miniz\miniz_zip.c" />
-    <ClCompile Include="libs\nlohmann\src\modules\json.cppm" />
-    <ClCompile Include="libs\z85\src\z85.c" />
-    <ClCompile Include="libs\discordrpc\src\connection_win.cpp" />
-    <ClCompile Include="libs\discordrpc\src\discord_register_win.cpp" />
-    <ClCompile Include="libs\discordrpc\src\discord_rpc.cpp" />
-    <ClCompile Include="libs\discordrpc\src\dllmain.cpp" />
-    <ClCompile Include="libs\discordrpc\src\rpc_connection.cpp" />
-    <ClCompile Include="libs\discordrpc\src\serialization.cpp" />
-    <ClCompile Include="libs\detours\src\detours.cpp" />
-    <ClCompile Include="libs\detours\src\image.cpp" />
-    <ClCompile Include="libs\detours\src\modules.cpp" />
-    <ClCompile Include="libs\detours\src\disasm.cpp" />
-    <ClCompile Include="main\hooks\HuntingState_ctor.cpp" />
-    <ClCompile Include="main\hooks\Player_NotifyOfDeathEnd.cpp" />
-    <ClCompile Include="main\hooks\Player_NotifyOfDeathStart.cpp" />
-    <ClCompile Include="main\hooks\JournalController_SendState.cpp" />
-    <ClCompile Include="main\features\feats\crucifixesp\crucifixesp.cpp" />
-    <ClCompile Include="main\features\feats\crucifixmod\crucifixmod.cpp" />
-    <ClCompile Include="main\hooks\Crucifix_GhostUse.cpp" />
-    <ClCompile Include="main\features\feats\soundboard\soundboard.cpp" />
-    <ClCompile Include="main\features\feats\ghostgps\ghostgps.cpp" />
+    <ClCompile Include="main\hooks\WaitForSeconds_ctor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h" />
@@ -173,6 +174,85 @@
     <ClInclude Include="inGame.h" />
     <ClInclude Include="libs\detours\include\detver.h" />
     <ClInclude Include="libs\detours\include\syelog.h" />
+    <ClInclude Include="libs\detours\src\detours.h" />
+    <ClInclude Include="libs\discordrpc\include\discord_register.h" />
+    <ClInclude Include="libs\discordrpc\include\discord_rpc.h" />
+    <ClInclude Include="libs\discordrpc\src\backoff.h" />
+    <ClInclude Include="libs\discordrpc\src\connection.h" />
+    <ClInclude Include="libs\discordrpc\src\msg_queue.h" />
+    <ClInclude Include="libs\discordrpc\src\rpc_connection.h" />
+    <ClInclude Include="libs\discordrpc\src\serialization.h" />
+    <ClInclude Include="libs\il2cpp\il2cpp.h" />
+    <ClInclude Include="libs\imgui\imconfig.h" />
+    <ClInclude Include="libs\imgui\imgui.h" />
+    <ClInclude Include="libs\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="libs\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="libs\imgui\imgui_internal.h" />
+    <ClInclude Include="libs\imgui\imstb_rectpack.h" />
+    <ClInclude Include="libs\imgui\imstb_textedit.h" />
+    <ClInclude Include="libs\imgui\imstb_truetype.h" />
+    <ClInclude Include="libs\imgui\misc\cpp\imgui_stdlib.h" />
+    <ClInclude Include="libs\imgui\misc\single_file\imgui_single_file.h" />
+    <ClInclude Include="libs\imgui\stb_image.h" />
+    <ClInclude Include="libs\miniz\miniz.h" />
+    <ClInclude Include="libs\miniz\miniz_common.h" />
+    <ClInclude Include="libs\miniz\miniz_export.h" />
+    <ClInclude Include="libs\miniz\miniz_tdef.h" />
+    <ClInclude Include="libs\miniz\miniz_tinfl.h" />
+    <ClInclude Include="libs\miniz\miniz_zip.h" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\adl_serializer.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\byte_container_with_subtype.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\abi_macros.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\conversions\from_json.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\conversions\to_chars.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\conversions\to_json.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\exceptions.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\hash.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\binary_reader.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\input_adapters.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\json_sax.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\lexer.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\parser.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\position_t.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\internal_iterator.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\iteration_proxy.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\iterator_traits.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\iter_impl.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\json_reverse_iterator.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\primitive_iterator.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\json_custom_base_class.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\json_pointer.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\json_ref.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\macro_scope.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\macro_unscope.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\call_std\begin.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\call_std\end.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\cpp_future.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\detected.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\identity_tag.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\is_sax.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\logic.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\std_fs.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\type_traits.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\void_t.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\output\binary_writer.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\output\output_adapters.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\output\serializer.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\string_concat.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\string_escape.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\string_utils.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\value_t.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\json.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\ordered_map.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\thirdparty\hedley\hedley.hpp" />
+    <ClInclude Include="libs\nlohmann\include\nlohmann\thirdparty\hedley\hedley_undef.hpp" />
+    <ClInclude Include="libs\nlohmann\json.hpp" />
+    <ClInclude Include="libs\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="libs\nlohmann\single_include\nlohmann\json.hpp" />
+    <ClInclude Include="libs\nlohmann\single_include\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="libs\z85\src\z85.h" />
+    <ClInclude Include="libs\z85\src\z85.hpp" />
     <ClInclude Include="libs\z85\z85.h" />
     <ClInclude Include="libs\z85\z85.hpp" />
     <ClInclude Include="loader\entry.h" />
@@ -194,11 +274,15 @@
     <ClInclude Include="main\features\feats\awesp\awesp.h" />
     <ClInclude Include="main\features\feats\cosmeticsunlocker\cosmeticunlocker.h" />
     <ClInclude Include="main\features\feats\crosshairmod\crosshairmod.h" />
+    <ClInclude Include="main\features\feats\crucifixesp\crucifixesp.h" />
+    <ClInclude Include="main\features\feats\crucifixmod\crucifixmod.h" />
     <ClInclude Include="main\features\feats\customlooklimits\customlooklimits.h" />
     <ClInclude Include="main\features\feats\curseditemscontroll\curseditemscontroll.h" />
     <ClInclude Include="main\features\feats\custname\customname.h" />
     <ClInclude Include="main\features\feats\custspeed\customspeed.h" />
     <ClInclude Include="main\features\feats\gamespeed\gamespeed.h" />
+    <ClInclude Include="main\features\feats\ghostgps\ghostgps.h" />
+    <ClInclude Include="main\features\feats\soundboard\soundboard.h" />
     <ClInclude Include="main\features\feats\spinbot\spinbot.h" />
     <ClInclude Include="main\features\feats\ghostspin\ghostspin.h" />
     <ClInclude Include="main\features\feats\ghosthandstand\ghosthandstand.h" />
@@ -229,6 +313,7 @@
     <ClInclude Include="main\features\feats\showmic\showmic.h" />
     <ClInclude Include="main\features\feats\skiplayeranim\skiplayeranim.h" />
     <ClInclude Include="main\features\feats\spiritboxalw\spiritboxalw.h" />
+    <ClInclude Include="main\features\feats\staminapanel\staminapanel.h" />
     <ClInclude Include="main\features\feats\vanbuttonmod\vanbuttonmod.h" />
     <ClInclude Include="main\features\feats\mapmod\mapmodifier.h" />
     <ClInclude Include="main\features\feats\noclip\noclip.h" />
@@ -264,6 +349,8 @@
     <ClInclude Include="main\menu\effects\rain.h" />
     <ClInclude Include="main\menu\renderer.h" />
     <ClInclude Include="main\menu\styles.h" />
+    <ClInclude Include="main\menu\widgets\OnlyHostMark.h" />
+    <ClInclude Include="main\menu\widgets\TempDisabled.h" />
     <ClInclude Include="main\sdk\Animator.h" />
     <ClInclude Include="main\sdk\Application.h" />
     <ClInclude Include="main\sdk\AudioSource.h" />
@@ -277,6 +364,7 @@
     <ClInclude Include="main\sdk\Component.h" />
     <ClInclude Include="main\sdk\Contract.h" />
     <ClInclude Include="main\sdk\CosmeticUnlocker.h" />
+    <ClInclude Include="main\sdk\Crucifix.h" />
     <ClInclude Include="main\sdk\CursedItem.h" />
     <ClInclude Include="main\sdk\CursedItemsController.h" />
     <ClInclude Include="main\sdk\Cursor.h" />
@@ -305,6 +393,7 @@
     <ClInclude Include="main\sdk\GhostTraits.h" />
     <ClInclude Include="main\sdk\Graphic.h" />
     <ClInclude Include="main\sdk\HandCamera.h" />
+    <ClInclude Include="main\sdk\HuntingState.h" />
     <ClInclude Include="main\sdk\ItemInfo.h" />
     <ClInclude Include="main\sdk\Jackalope.h" />
     <ClInclude Include="main\sdk\JournalController.h" />
@@ -331,6 +420,7 @@
     <ClInclude Include="main\sdk\MethodInfo.h" />
     <ClInclude Include="main\sdk\MonoBehaviour.h" />
     <ClInclude Include="main\sdk\MouseLook.h" />
+    <ClInclude Include="main\sdk\NavMesh.h" />
     <ClInclude Include="main\sdk\Network.h" />
     <ClInclude Include="main\sdk\Object.h" />
     <ClInclude Include="main\sdk\ObjectiveManager.h" />
@@ -380,6 +470,7 @@
     <ClInclude Include="main\sdk\Transform.h" />
     <ClInclude Include="main\sdk\Vector2.h" />
     <ClInclude Include="main\sdk\Vector3.h" />
+    <ClInclude Include="main\sdk\Vector4.h" />
     <ClInclude Include="main\sdk\Voice.h" />
     <ClInclude Include="main\sdk\VoodooDollPin.h" />
     <ClInclude Include="main\sdk\WeatherProfile.h" />
@@ -400,1315 +491,8 @@
     <ClInclude Include="res\images\uv_default.h" />
     <ClInclude Include="res\images\uv_obake.h" />
     <ClInclude Include="res\images\voodooDoll.h" />
-    <ClInclude Include="main\features\feats\staminapanel\staminapanel.h" />
-    <ClInclude Include="libs\discordrpc\include\discord_rpc.h" />
-    <ClInclude Include="libs\il2cpp\il2cpp.h" />
-    <ClInclude Include="libs\imgui\imconfig.h" />
-    <ClInclude Include="libs\imgui\imgui.h" />
-    <ClInclude Include="libs\imgui\imgui_impl_dx11.h" />
-    <ClInclude Include="libs\imgui\imgui_impl_win32.h" />
-    <ClInclude Include="libs\imgui\imgui_internal.h" />
-    <ClInclude Include="libs\imgui\imstb_rectpack.h" />
-    <ClInclude Include="libs\imgui\imstb_textedit.h" />
-    <ClInclude Include="libs\imgui\imstb_truetype.h" />
-    <ClInclude Include="libs\imgui\stb_image.h" />
-    <ClInclude Include="libs\miniz\miniz.h" />
-    <ClInclude Include="libs\nlohmann\json.hpp" />
-    <ClInclude Include="libs\nlohmann\json_fwd.hpp" />
-    <ClInclude Include="libs\miniz\miniz_export.h" />
-    <ClInclude Include="libs\imgui\misc\cpp\imgui_stdlib.h" />
-    <ClInclude Include="libs\imgui\misc\single_file\imgui_single_file.h" />
-    <ClInclude Include="libs\miniz\miniz_common.h" />
-    <ClInclude Include="libs\miniz\miniz_tdef.h" />
-    <ClInclude Include="libs\miniz\miniz_tinfl.h" />
-    <ClInclude Include="libs\miniz\miniz_zip.h" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\conversions\from_json.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\conversions\to_chars.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\conversions\to_json.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\binary_reader.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\input_adapters.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\json_sax.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\lexer.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\parser.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\input\position_t.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\internal_iterator.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\iter_impl.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\iteration_proxy.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\iterator_traits.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\json_reverse_iterator.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\iterators\primitive_iterator.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\call_std\begin.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\call_std\end.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\cpp_future.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\detected.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\identity_tag.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\is_sax.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\logic.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\std_fs.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\type_traits.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\meta\void_t.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\output\binary_writer.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\output\output_adapters.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\output\serializer.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\abi_macros.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\exceptions.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\hash.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\json_custom_base_class.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\json_pointer.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\json_ref.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\macro_scope.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\macro_unscope.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\string_concat.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\string_escape.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\string_utils.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\detail\value_t.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\thirdparty\hedley\hedley.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\thirdparty\hedley\hedley_undef.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\adl_serializer.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\byte_container_with_subtype.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\json.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\json_fwd.hpp" />
-    <ClInclude Include="libs\nlohmann\include\nlohmann\ordered_map.hpp" />
-    <ClInclude Include="libs\nlohmann\single_include\nlohmann\json.hpp" />
-    <ClInclude Include="libs\nlohmann\single_include\nlohmann\json_fwd.hpp" />
-    <ClInclude Include="libs\z85\src\z85.h" />
-    <ClInclude Include="libs\z85\src\z85.hpp" />
-    <ClInclude Include="libs\discordrpc\include\discord_register.h" />
-    <ClInclude Include="libs\discordrpc\src\backoff.h" />
-    <ClInclude Include="libs\discordrpc\src\connection.h" />
-    <ClInclude Include="libs\discordrpc\src\msg_queue.h" />
-    <ClInclude Include="libs\discordrpc\src\rpc_connection.h" />
-    <ClInclude Include="libs\discordrpc\src\serialization.h" />
-    <ClInclude Include="libs\detours\src\detours.h" />
-    <Filter Include="Исходные файлы">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Файлы заголовков">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="detours">
-      <UniqueIdentifier>{b5b9db23-bb16-42da-9999-7edcdd8a0ac6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="imgui">
-      <UniqueIdentifier>{97023ca2-4130-48d5-a386-abe98a1d37ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Il2cpp">
-      <UniqueIdentifier>{bc5ab0cc-28fa-4e80-8ecf-91b57c6dfaca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk">
-      <UniqueIdentifier>{1f53e4d2-b77f-4d8a-ac4e-12d291ce014f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="hooks">
-      <UniqueIdentifier>{4507e7b9-9587-4c96-bf56-87a98fd2a068}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="logger">
-      <UniqueIdentifier>{3aaee8ac-f36e-4f80-8a2a-1902336f23c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="menu">
-      <UniqueIdentifier>{3047d702-ce57-4222-90f9-8823e99ad6f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utils">
-      <UniqueIdentifier>{16714487-2458-4919-8514-66567f53af4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="features">
-      <UniqueIdentifier>{72e9687e-963a-40e8-83f5-d4e41d5597ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="features\feats">
-      <UniqueIdentifier>{d19d3a8f-dbb5-435e-85d2-6c9dbcb7f124}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="configs">
-      <UniqueIdentifier>{af337e08-b120-428b-8087-a4c7e9beb5be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="fonts">
-      <UniqueIdentifier>{c78ec3a6-4cc9-44e5-a7ef-76dbc7d85d8b}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-=======
-    <Filter Include="Исходные файлы">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Файлы заголовков">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="detours">
-      <UniqueIdentifier>{b5b9db23-bb16-42da-9999-7edcdd8a0ac6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="imgui">
-      <UniqueIdentifier>{97023ca2-4130-48d5-a386-abe98a1d37ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Il2cpp">
-      <UniqueIdentifier>{bc5ab0cc-28fa-4e80-8ecf-91b57c6dfaca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk">
-      <UniqueIdentifier>{1f53e4d2-b77f-4d8a-ac4e-12d291ce014f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="hooks">
-      <UniqueIdentifier>{4507e7b9-9587-4c96-bf56-87a98fd2a068}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="logger">
-      <UniqueIdentifier>{3aaee8ac-f36e-4f80-8a2a-1902336f23c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="menu">
-      <UniqueIdentifier>{3047d702-ce57-4222-90f9-8823e99ad6f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utils">
-      <UniqueIdentifier>{16714487-2458-4919-8514-66567f53af4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="features">
-      <UniqueIdentifier>{72e9687e-963a-40e8-83f5-d4e41d5597ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="features\feats">
-      <UniqueIdentifier>{d19d3a8f-dbb5-435e-85d2-6c9dbcb7f124}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="configs">
-      <UniqueIdentifier>{af337e08-b120-428b-8087-a4c7e9beb5be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="fonts">
-      <UniqueIdentifier>{c78ec3a6-4cc9-44e5-a7ef-76dbc7d85d8b}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
->>>>>>> 4ac75269361c1c8547816aa2abdcc14ffa3a521d
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\il2cpp\il2cpp.cpp">
-      <Filter>Il2cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\hooking.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\LevelController_Start.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="main\logging\logger.cpp">
-      <Filter>logger</Filter>
-    </ClCompile>
-    <ClCompile Include="main\menu\menu.cpp">
-      <Filter>menu</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\WndProc.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\Present.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="main\menu\renderer.cpp">
-      <Filter>menu</Filter>
-    </ClCompile>
-    <ClCompile Include="main\utils\utils.cpp">
-      <Filter>utils</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\ExitLevel_Exit.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feature.cpp">
-      <Filter>features</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\waterka\watermark.cpp">
-      <Filter>features\feats</Filter>
-    </ClCompile>
-    <ClCompile Include="main\config\configs_manager.cpp">
-      <Filter>configs</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\imgui\imgui_draw.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\imgui\imgui_impl_dx11.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\imgui\imgui_impl_win32.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\imgui\imgui_tables.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\imgui\imgui_widgets.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\imgui\imgui.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\imgui\imgui_demo.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="main\config\config.cpp">
-      <Filter>configs</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\ghostpanel\ghostpanel.cpp">
-      <Filter>features\feats</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\MapController_Start.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\GhostAI_Start.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\GameController_Exit.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\PauseMenuController_Leave.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\ghostesp\ghostesp.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\GhostAI_Hunting.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\fuseesp\fuseesp.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\GhostAI_Update.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\edvesp\edvesp.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\EvidenceController_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\fullbright\fullbright.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\statspanel\statspanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\actmonik\actmonik.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\EMFData_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\playerpanel\playerpanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\playeresp\playeresp.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\godmode\godmode.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\foveditor\foveditor.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\playermod\playermodifier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\ghostmod\ghostmodifier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\ghostinter\ghostinter.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\ghostdesign\ghostdesign.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\GhostInfo_SyncValuesNetworked.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\GhostInfo_SyncEvidence.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\pickup\pickup.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\PhotonObjectInteract_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\mem\memory.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\custname\customname.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\FirstPersonController_Update.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\customlooklimits\customlooklimits.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\curseditemscontroll\curseditemscontroll.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\TarotCard_SetCard.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\infstamina\infinitystamina.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\noclip\noclip.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\PlayerStamina_Update.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\custspeed\customspeed.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\teleport\teleport.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\exitvanone\exitvanone.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\ExitLevel_ThereAreAlivePlayersOutsideTheTruck.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\antikick\antikick.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\ServerManager_KickPlayerNetworked.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\ObjectiveManager_Update.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\rewardmod\rewardmodifier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\LevelValues_GetInvestigationBonusReward.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\LevelValues_IsPerfectGame.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\MediaValues_GetRewardAmount.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\diffmod\difficultymodifier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\doormod\doormodifier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\grabkey\grabkey.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\mapmod\mapmodifier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\Key_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\SaltShaker_Update.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\saltmod\saltmodifier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\SaltSpot_SyncSalt.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\LevelSelectionManager_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\tests\test.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\shopmod\shopmodifier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\Application_CallLogCallback.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\forcestart\forcestart.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\ServerManager_Ready.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\notifyinfo\notifyinfo.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\DNAEvidence_GrabbedNetworked.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\FallTeleportBox_OnTriggerEnter.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\LightSwitch_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\LightningController_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\TarotCards_GrabCard.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\TarotCards_BreakItem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\RandomWeather_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\EMFData_UpdateNightMareGraph.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\CursedItemsController_Awake.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\LiftButton_AttemptUse.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\vanbuttonmod\vanbuttonmod.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\GameController_PlayerDied.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\config\LanguageManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\temperaturepanel\temperaturepanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\Thermometer_HoldUse.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\fastthermometer\fastthermometer.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\noendgame\noendgame.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\PhotonView_RPC.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\crosshairmod\crosshairmod.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\potatoeesp\potatoeesp.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\flashlightmod\flashlightmod.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\ServerManager_LoadScene.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\alwaysbloodmoon\alwaysbloodmoon.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\LiftButton_Update.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\DNAEvidence_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\autopickupbone\autopickupbone.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\photomod\photomod.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\HandCamera_MoveNext.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\z85\z85.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\z85\z85_impl.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\miniz\miniz.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\fontchanger\fontchanger.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\Player_Start.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\journalmod\journalmod.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\VoodooDollPin_Use.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="loader\entry.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="loader\proxy.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\diagnostics\diagnostics.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\jackalopeesp\jackalopeesp.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\Jackalope_Awake.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\EVPRecorder_CanAnswer.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\spiritboxalw\spiritboxalw.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\autogame\autogame.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\fusemod\fusemod.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\discordrpc\discordrpc.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\ScriptableRenderContext_Submit.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\Player_StartDeathAnimation.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\showmic\showmic.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\musicpanel\musicpanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\GameController_Awake.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\RewardManager_Awake.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\SceneManagement_Internal_SceneLoaded.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\CosmeticsUnlocker.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\cosmeticsunlocker\cosmeticunlocker.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\awesp\awesp.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\AWDoll_Awake.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\audiomod\audiomod.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\hooks\Key_GrabbedKey.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\skiplayeranim\skiplayeranim.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="main\features\feats\worldmodulation\worldmodulation.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Globals.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="inGame.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\detours\include\detver.h">
-      <Filter>detours</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\detours\include\syelog.h">
-      <Filter>detours</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\detours\include\detours.h">
-      <Filter>detours</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\sdk.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\il2cpp\il2cpp.h">
-      <Filter>Il2cpp</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GhostAI.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\MethodInfo.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\MonoBehaviour.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Vector3.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Vector4.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Quaternion.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\String.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Vector2.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GhostInfo.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GhostModel.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GhostTraits.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GhostEvidence.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="Includes.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\hooks\Hooks.h">
-      <Filter>hooks</Filter>
-    </ClInclude>
-    <ClInclude Include="main\hooks\hooking.h">
-      <Filter>hooks</Filter>
-    </ClInclude>
-    <ClInclude Include="main\logging\logger.h">
-      <Filter>logger</Filter>
-    </ClInclude>
-    <ClInclude Include="main\menu\styles.h">
-      <Filter>menu</Filter>
-    </ClInclude>
-    <ClInclude Include="main\menu\menu.h">
-      <Filter>menu</Filter>
-    </ClInclude>
-    <ClInclude Include="main\menu\renderer.h">
-      <Filter>menu</Filter>
-    </ClInclude>
-    <ClInclude Include="main\utils\utils.h">
-      <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\ExitLevel.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Cursor.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feature.h">
-      <Filter>features</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\settings.h">
-      <Filter>features</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\waterka\watermark.h">
-      <Filter>features\feats</Filter>
-    </ClInclude>
-    <ClInclude Include="main\config\configs_manager.h">
-      <Filter>configs</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imgui\imgui_impl_dx11.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imgui\imgui_impl_win32.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imgui\imgui_internal.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imgui\imstb_rectpack.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imgui\imstb_textedit.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imgui\imstb_truetype.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imgui\imconfig.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imgui\imgui.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="main\config\config.h">
-      <Filter>configs</Filter>
-    </ClInclude>
-    <ClInclude Include="res\fonts\DefFont.hpp">
-      <Filter>fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="res\fonts\HeadFont.hpp">
-      <Filter>fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="res\fonts\VCustomFont.hpp">
-      <Filter>fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\ghostpanel\ghostpanel.h">
-      <Filter>features\feats</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Network.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Player.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\PlayerSanity.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\PlayerStamina.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\PhysicsCharacterController.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GameObject.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LevelController.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LevelRoom.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LevelStats.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LevelValues.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\MapController.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Transform.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Camera.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Component.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\System.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\FuseBox.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GameController.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Door.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\RaycastHit.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Rigidbody.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\PhotonNetwork.h">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\PauseMenuController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\ghostesp\ghostesp.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\fuseesp\fuseesp.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\edvesp\edvesp.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Evidence.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\EvidenceController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\MediaValues.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\fullbright\fullbright.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Light.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\statspanel\statspanel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\actmonik\actmonik.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\EMFData.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LineRenderer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\playerpanel\playerpanel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\playeresp\playeresp.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\godmode\godmode.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\foveditor\foveditor.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\playermod\playermodifier.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\utils\notification.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\ghostmod\ghostmodifier.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\ghostinter\ghostinter.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GhostActivity.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\ghostdesign\ghostdesign.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\PhotonObjectInteract.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\pickup\pickup.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\mem\memory.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\custname\customname.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\FirstPersonController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\MouseLook.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\features_includes.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\360camera\camera360.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\customlooklimits\customlooklimits.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\curseditemscontroll\curseditemscontroll.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\CursedItemsController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\CursedItem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\TarotCards.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\TarotCard.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\infstamina\infinitystamina.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\noclip\noclip.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Time.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\custspeed\customspeed.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\teleport\teleport.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\exitvanone\exitvanone.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\ServerManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\antikick\antikick.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\ObjectiveManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\rewardmod\rewardmodifier.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Difficulty.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\diffmod\difficultymodifier.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\doormod\doormodifier.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Key.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\grabkey\grabkey.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Map.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\mapmod\mapmodifier.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\SceneManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LightSwitch.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Object.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\SaltShaker.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\saltmod\saltmodifier.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\SaltSpot.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\PhotonView.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LevelSelectionManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\tests\test.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\shopmod\shopmodifier.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\StoreItemInfo.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\ItemInfo.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\StoreItem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Resources.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Application.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\JournalController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\PhotonMessageInfo.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\TextMeshProUGUI.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\forcestart\forcestart.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\DNAEvidence.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\notifyinfo\notifyinfo.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\FallTeleportBox.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LightningController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\RandomWeather.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\WeatherProfile.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Contract.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Animator.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LiftButton.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\vanbuttonmod\vanbuttonmod.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\config\LanguageManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\config\Translations.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="res\fonts\MenuNewFont.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\HandCamera.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Render.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LayerMask.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\temperaturepanel\temperaturepanel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Thermometer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\fastthermometer\fastthermometer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\config\BindSystem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\noendgame\noendgame.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Graphic.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Color.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\crosshairmod\crosshairmod.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\RectTransform.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Screen.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\potatoeesp\potatoeesp.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Torch.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\flashlightmod\flashlightmod.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Texture.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\alwaysbloodmoon\alwaysbloodmoon.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Collider.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\autopickupbone\autopickupbone.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\photomod\photomod.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Equipment.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\z85\z85.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\z85\z85.hpp">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\miniz\miniz.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Font.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\fontchanger\fontchanger.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\GhostButton.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\journalmod\journalmod.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\ThreeStateButton.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Physics.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\SummoningCircle.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Candle.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\VoodooDollPin.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="loader\entry.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="loader\proxy.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\diagnostics\diagnostics.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Jackalope.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\jackalopeesp\jackalopeesp.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\EVPRecorder.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\spiritboxalw\spiritboxalw.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\autogame\autogame.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\fusemod\fusemod.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\menu\effects\rain.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\menu\effects\directx_blur.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\menu\effects\pshader.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\SteamFriends.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\discordrpc\discordrpc.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\ScriptableRenderContext.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LocalPCPlayer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\LocalPlayer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Journal_PhotoPage.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\JournalMedia.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Media.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="res\images\mic_off.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="res\images\mic_on.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\showmic\showmic.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Voice.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\musicpanel\musicpanel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Button.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\RewardManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\SceneManagement.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\Xdsat\Downloads\Telegram Desktop\Translations_upd.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\CosmeticUnlocker.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\cosmeticsunlocker\cosmeticunlocker.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\AWDoll.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\awesp\awesp.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\AzureEffectsController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\AudioSource.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\audiomod\audiomod.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\skiplayeranim\skiplayeranim.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\features\feats\worldmodulation\worldmodulation.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\RenderSettings.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Material.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\Shader.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="main\sdk\HuntingState.h" />
-    <ClInclude Include="main\menu\widgets\OnlyHostMark.h" />
-    <ClInclude Include="main\menu\widgets\TempDisabled.h" />
-    <ClInclude Include="main\features\feats\crucifixesp\crucifixesp.h" />
-    <ClInclude Include="main\sdk\Crucifix.h" />
-    <ClInclude Include="main\features\feats\crucifixmod\crucifixmod.h" />
-    <ClInclude Include="main\features\feats\soundboard\soundboard.h" />
-    <ClInclude Include="main\sdk\NavMesh.h" />
-    <ClInclude Include="main\features\feats\ghostgps\ghostgps.h" />
+    <ClInclude Include="main\sdk\WaitForSeconds.h" />
+    <ClInclude Include="main\sdk\MainManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

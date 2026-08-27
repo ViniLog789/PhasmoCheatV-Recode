@@ -62,6 +62,7 @@ namespace PhasmoCheatV
 		static void hkPlayer_NotifyOfDeathStart(SDK::Player* player, void* photonMessageInfo, SDK::MethodInfo* methodInfo);
 		static void hkJournalController_SendState(SDK::JournalController* journalController, bool a1, bool sync, SDK::MethodInfo* methodInfo);
 		static void hkCrucifix_GhostUse(SDK::Crucifix* crucifix, SDK::MethodInfo* methodInfo);
+		static void hkWaitForSeconds_ctor(SDK::WaitForSeconds* waitForSeconds, float seconds, SDK::MethodInfo* methodInfo);
 		 
 		// CosmeticsUnlocker hooks
 #if COSMETICSUNLOCKER

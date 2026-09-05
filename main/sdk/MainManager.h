@@ -12,7 +12,7 @@ namespace SDK
 		void* psvr2EulaSpawn;
 		bool ranOnce;
 		char pad_000[0x7];
-		void* serverManager;
+		ServerManager* serverManager;
 		LevelSelectionManager* levelSelection;
 		void* difficultyUIManager;
 		void* ghostOS;

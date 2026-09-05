@@ -135,6 +135,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI PhasmoCheatVThread()
         AHKA(Player_NotifyOfDeathStart);
         AHKA(Crucifix_GhostUse);
         AHKA(WaitForSeconds_ctor);
+        AHKA(FootstepController_AttemptPlaySound);
         PHK(HandCamera_MoveNext, Hooks::hkHandCamera_MoveNext); // using PATTERN_HOOK
 		PHK(HuntingState_ctor, Hooks::hkHuntingState_ctor);
         PHK(EMFData_UpdateNightMareGraph, Hooks::hkEMFData_UpdateNightMareGraph);

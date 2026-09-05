@@ -239,20 +239,13 @@ void AutoGame::AutoGameHandler()
 
 	case AutoGamePhase::FindLobby:
 	{
-		auto* levelSelectionManager = InGame::levelSelectionManager;
+		auto mainManager = SDK::MainManager_staticFields->instance;
+		if (!mainManager)
+			return;
 
+		auto levelSelectionManager = mainManager->Fields.levelSelection;
 		if (!levelSelectionManager)
-		{
-			auto* go = Utils::FindObjectByName("Contract Selection UI Canvas");
-			if (!go) return;
-
-			levelSelectionManager = reinterpret_cast<SDK::LevelSelectionManager*>(
-				SDK::GameObject_GetComponentByName(go, Utils::SysStrToUnityStr("LevelSelectionManager"), nullptr));
-
-			if (!levelSelectionManager) return;
-
-			InGame::levelSelectionManager = levelSelectionManager;
-		}
+			return;
 
 		phase = AutoGamePhase::Voting;
 		nextActionTime = now + std::chrono::milliseconds(delayMs);
@@ -261,8 +254,13 @@ void AutoGame::AutoGameHandler()
 
 	case AutoGamePhase::Voting:
 	{
-		auto* manager = InGame::levelSelectionManager;
-		if (!manager) return;
+		auto mainManager = SDK::MainManager_staticFields->instance;
+		if (!mainManager)
+			return;
+
+		auto manager = mainManager->Fields.levelSelection;
+		if (!manager)
+			return;
 
 		SDK::LevelSelectionManager_VoteMap(manager, mapIdCfg, nullptr);
 
@@ -273,9 +271,17 @@ void AutoGame::AutoGameHandler()
 
 	case AutoGamePhase::WaitingForVote:
 	{
-		auto* manager = InGame::levelSelectionManager;
+		auto mainManager = SDK::MainManager_staticFields->instance;
+		if (!mainManager)
+		{
+			LOG_ERROR("MainManager instance is null");
+			return;
+		}
+
+		auto manager = mainManager->Fields.levelSelection;
 		if (!manager) {
 			LOG_INFO("manager is null");
+			return;
 		}
 
 		auto* votedContract = manager->Fields.votedContract;
@@ -301,8 +307,8 @@ void AutoGame::AutoGameHandler()
 		}
 		else
 		{
-
 			LOG_INFO("votedId = %d mapId = %d", votedId, mapIdCfg);
+			//ret;
 		}
 		break;
 	}
@@ -312,12 +318,14 @@ void AutoGame::AutoGameHandler()
 		if (!SDK::PhotonNetwork_Get_IsMasterClient(nullptr))
 			return;
 
-		auto* lobbyGO = Utils::FindObjectByName("Game Lobby");
-		if (!lobbyGO) return;
+		auto mainManager = SDK::MainManager_staticFields->instance;
+		if (!mainManager)
+		{
+			LOG_ERROR("MainManager instance is null");
+			return;
+		}
 
-		auto* serverManager = reinterpret_cast<SDK::ServerManager*>(
-			SDK::GameObject_GetComponentByName(lobbyGO, Utils::SysStrToUnityStr("ServerManager"), nullptr));
-
+		auto* serverManager = mainManager->Fields.serverManager;
 		if (!serverManager) return;
 
 		SDK::ServerManager_StartGame(serverManager, nullptr);
@@ -356,7 +364,7 @@ void AutoGame::AutoGameHandler()
 
 	case AutoGamePhase::CompletingObjectives:
 	{
-		auto* objectiveManager = InGame::objectiveManager;
+		auto* objectiveManager = SDK::ObjectiveManager_StaticFields->instance;
 		if (!objectiveManager) return;
 
 		for (auto obj : allObjectives)

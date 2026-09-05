@@ -50,7 +50,7 @@ void Teleport::OnMenuRender()
     const char* basementButtonText = LANG("Teleport_Basement");
 
     auto currentMap = Utils::GetMap();
-    if (currentMap)
+    if (currentMap && currentMap->Fields.mapName)
     {
         std::string mapName = Utils::UnityStrToSysStr(*currentMap->Fields.mapName);
 

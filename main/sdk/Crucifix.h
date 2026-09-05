@@ -5,7 +5,7 @@ namespace SDK
 {
 	struct CrucifixFields
 	{
-		char trash[0x390];
+		char trash[0x3C0];
 		void* photoEvidence;
 		void* videoEvidence;
 		void* burningClip;

@@ -84,8 +84,11 @@ jobs:
           path: |
             **/Release/**/*.dll
             **/Release/**/*.exe
+            **/Release/**/*.pdb
             **/x64/Release/**/*.dll
             **/x64/Release/**/*.exe
+            **/x64/Release/**/*.pdb
             **/build/**/*.exe
             **/build/**/*.dll
+            **/build/**/*.pdb
           if-no-files-found: warn

@@ -277,6 +277,7 @@
     <ClCompile Include="main\hooks\ExitLevel_ThereAreAlivePlayersOutsideTheTruck.cpp" />
     <ClCompile Include="main\hooks\FallTeleportBox_OnTriggerEnter.cpp" />
     <ClCompile Include="main\hooks\FirstPersonController_Update.cpp" />
+    <ClCompile Include="main\hooks\FootstepController_AttemptPlaySound.cpp" />
     <ClCompile Include="main\hooks\GameController_Exit.cpp" />
     <ClCompile Include="main\hooks\GameController_PlayerDied.cpp" />
     <ClCompile Include="main\hooks\GhostAI_Hunting.cpp" />
@@ -542,6 +543,7 @@
     <ClInclude Include="main\sdk\FallTeleportBox.h" />
     <ClInclude Include="main\sdk\FirstPersonController.h" />
     <ClInclude Include="main\sdk\Font.h" />
+    <ClInclude Include="main\sdk\FootstepController.h" />
     <ClInclude Include="main\sdk\FuseBox.h" />
     <ClInclude Include="main\sdk\GameController.h" />
     <ClInclude Include="main\sdk\GameObject.h" />

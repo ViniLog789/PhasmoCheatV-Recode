@@ -57,8 +57,8 @@ namespace Discord
         static std::string state;
         state = std::string(Globals::statusRPC)
             + " | "
-            + Globals::Version
-            + (Globals::IsBeta ? " | beta" : "");
+            + Globals::GetVersion()
+            + (Globals::IsBeta ? " • beta" : "");
 
         rp.state = state.c_str();
         rp.details = "By VCom Team";

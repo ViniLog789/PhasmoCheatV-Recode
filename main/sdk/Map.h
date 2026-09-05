@@ -8,6 +8,8 @@ namespace SDK
         char pad_000[8]; // ScriptableObject
         int32_t levelType;
         int32_t levelSize;
+		bool isRestricted;
+        char pad_001[0x7];
         String* mapName;
         String* descriptionLocaliseID;
         int32_t totalRooms;
@@ -20,6 +22,7 @@ namespace SDK
         int32_t uniqueMapID;
         int32_t activityID;
         int32_t unlockAtLevel;
+        int32_t mapFlags;
     };
 
 	struct Map

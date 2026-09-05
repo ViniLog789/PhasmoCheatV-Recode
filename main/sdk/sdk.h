@@ -643,3 +643,4 @@ namespace SDK
 #include "Crucifix.h"
 #include "WaitForSeconds.h"
 #include "MainManager.h"
+#include "FootstepController.h"

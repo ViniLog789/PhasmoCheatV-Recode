@@ -14,6 +14,7 @@ namespace PhasmoCheatV::Features::Misc
 		void OnRender() override {};
 		void OnMenuRender() override;
 		void AudioModifierHandler();
+		bool get_bMuteFootsteps() { return CONFIG_BOOL(GetConfigManager(), "MuteFootsteps"); }
 	private:
 		bool SetVolume(SDK::AudioSource* audio, float volume, float* lastValue = nullptr);
 		float basevol1;

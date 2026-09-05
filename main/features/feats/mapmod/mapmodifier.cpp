@@ -53,7 +53,7 @@ void MapModifier::OnMenuRender()
     int32_t AutoVoteMapId = CONFIG_INT(GetConfigManager(), "AutoVoteMapId");
 
     SDK::Map* mapInstance = Utils::GetMap();
-    if (mapInstance)
+    if (mapInstance && mapInstance->Fields.mapName)
     {
         std::string CurrentMapName = Utils::UnityStrToSysStr(*mapInstance->Fields.mapName);
         ImGui::Text(LANG("CurrentMap"), CurrentMapName.c_str());

@@ -5,6 +5,7 @@ using namespace PhasmoCheatV::Features::Misc;
 AudioModifier::AudioModifier() : FeatureCore(LANG("AudioModifier_Header"), TYPE_MISC) 
 {
 	DECLARE_CONFIG(GetConfigManager(), "MuteWeather", bool, false);
+	DECLARE_CONFIG(GetConfigManager(), "MuteFootsteps", bool, false);
 }
 
 void AudioModifier::OnMenuRender()
@@ -28,6 +29,10 @@ void AudioModifier::OnMenuRender()
 	bool muteWeather = CONFIG_BOOL(GetConfigManager(), "MuteWeather");
 	if (ImGui::Checkbox(LANG("DisableWeatherAudio"), &muteWeather))
 		SET_CONFIG_VALUE(GetConfigManager(), "MuteWeather", bool, muteWeather);
+
+	bool muteFootsteps = CONFIG_BOOL(GetConfigManager(), "MuteFootsteps");
+	if (ImGui::Checkbox(LANG("DisableFootstepAudio"), &muteFootsteps))
+		SET_CONFIG_VALUE(GetConfigManager(), "MuteFootsteps", bool, muteFootsteps);
 
 	ImGui::PopStyleVar();
 }

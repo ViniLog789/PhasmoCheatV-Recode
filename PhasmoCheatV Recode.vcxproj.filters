@@ -167,6 +167,7 @@
     <ClCompile Include="main\menu\renderer.cpp" />
     <ClCompile Include="main\utils\utils.cpp" />
     <ClCompile Include="main\hooks\WaitForSeconds_ctor.cpp" />
+    <ClCompile Include="main\hooks\FootstepController_AttemptPlaySound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h" />
@@ -493,6 +494,7 @@
     <ClInclude Include="res\images\voodooDoll.h" />
     <ClInclude Include="main\sdk\WaitForSeconds.h" />
     <ClInclude Include="main\sdk\MainManager.h" />
+    <ClInclude Include="main\sdk\FootstepController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -22,9 +22,9 @@ namespace PhasmoCheatV::Globals
 	inline std::atomic<bool> CheatWork{ false };
 	inline bool isHunting = false;
 	inline int MenuToggleKey = VK_RETURN;
-	inline bool IsBeta = false;
-	inline std::string Version = "3.0";
-	inline std::string betaVersion = "3.0.0";
+	inline bool IsBeta = true;
+	inline std::string Version = "3.1";
+	inline std::string betaVersion = "3.1.2";
 	inline char statusRPC[128] = "Waiting...";
 
 	// IMGUI

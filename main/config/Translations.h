@@ -642,6 +642,7 @@ inline void RegisterAllTranslations()
     // Audio Modifier
     ADD_STR("AudioModifierEnable", "Enable audio modifier", u8"Включить модификатор аудио", u8"启用音频修改功能");
     ADD_STR("DisableWeatherAudio", "Disable weather audio", u8"Выключить аудио погоды", u8"禁用天气音效");
+    ADD_STR("DisableFootstepAudio", "Disable footstep audio", u8"Выключить аудио шагов");
 
     // Skip player animation
     ADD_STR("SkipPlayerAnimEnable", "Enable skip player animation", u8"Включить пропуск анимации игрока", u8"启用跳过玩家动画");

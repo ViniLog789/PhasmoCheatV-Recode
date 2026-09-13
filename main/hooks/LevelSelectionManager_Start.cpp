@@ -5,8 +5,6 @@ std::nullptr_t Hooks::hkLevelSelectionManager_Start(SDK::LevelSelectionManager* 
 {
 	LOG_CALL("Called LevelSelectionManager_Start");
 
-	CALL_METHOD_ARGS(Map, MapModifier, MapModifierMainAutoVote, levelSelectionManager);
-
 	if (CheatWork)
 		InGame::levelSelectionManager = levelSelectionManager;
 

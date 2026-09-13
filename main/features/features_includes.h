@@ -69,3 +69,4 @@
 #include "feats/crucifixmod/crucifixmod.h"
 #include "feats/soundboard/soundboard.h"
 #include "feats/ghostgps/ghostgps.h"
+#include "feats/automap/automap.h"

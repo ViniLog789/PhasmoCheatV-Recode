@@ -11,6 +11,4 @@ void Hooks::hkGhostInfo_SyncValuesNetworked(SDK::GhostInfo* instance, int ghostT
     CALL_METHOD_IF_ACTIVE_ARGS(Ghost, GhostDesigner, ApplyGhostSettings, ghostType, ghostAge, isShy);
 
     SDK::GhostInfo_SyncValuesNetworked(instance, ghostType, ghostAge, isMale, ghostFirstNameID, ghostLastNameID, isShy, deathLength, favouriteRoomID, isWhisper, photon, methodInfo);
-
-    CALL_METHOD_ARGS(Misc, JournalModifier, JournalModifierMain, ghostType);
 }

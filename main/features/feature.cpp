@@ -140,6 +140,7 @@ FeatureHandler::FeatureHandler() : CurrentType(TYPE_NONE)
     // Automatic
     ADD_FEATURE(this, AutoGame);
     ADD_FEATURE(this, AutoPickupBone);
+	ADD_FEATURE(this, AutoMap);
 
     // Hided | MISC
 #if COSMETICSUNLOCKER

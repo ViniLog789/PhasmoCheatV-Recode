@@ -13,9 +13,11 @@ namespace PhasmoCheatV::Features::Misc
 		void OnDeactivate() override;
 		void OnRender() override;
 		void OnMenuRender() override;
-		void JournalModifierMain(int GhostType);
+		void JournalModifierHandler();
 
 	private:
 		float lastUpdateTime = 0.0f;
+
+		void JournalModifierMain(int GhostType);
 	};
 }

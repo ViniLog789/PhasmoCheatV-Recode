@@ -724,25 +724,20 @@ void Menu::Render()
                     }
                 }
 
-                if (ImGui::Button("Test isingame"))
+                if (ImGui::Button("Test_map join"))
                 {
-                    bool inGame =
-                        SDK::GameController_StaticFields->instance &&
-                        SDK::GameController_StaticFields->instance->Fields.allPlayersAreConnected &&
-                        Utils::GetGhostAI() &&
-                        Utils::GetGhostAI()->Fields.GhostInfo &&
-                        Utils::GetGhostAI()->Fields.GhostInfo->Fields.GhostTraits.Name;
+                    auto mainManager = SDK::MainManager_staticFields->instance;
+                    if (!mainManager)
+                    {
+                        LOG_ERROR("MainManager instance is null");
+                        return;
+                    }
 
-					LOG_INFO("Is in game: ", inGame);
+                    auto levelSelection = mainManager->Fields.levelSelection;
 
-                    LOG_INFO("===");
+                    SDK::LevelSelectionManager_VoteMap(levelSelection, 65, nullptr);
 
-					LOG_INFO("GameController instance: ", SDK::GameController_StaticFields->instance);
-					LOG_INFO("allPlayersAreConnected: ", SDK::GameController_StaticFields->instance ? SDK::GameController_StaticFields->instance->Fields.allPlayersAreConnected : false);
-					LOG_INFO("GhostAI: ", Utils::GetGhostAI());
-					LOG_INFO("GhostInfo: ", Utils::GetGhostAI() ? Utils::GetGhostAI()->Fields.GhostInfo : nullptr);
-					LOG_INFO("GhostName_: ", Utils::GetGhostAI() && Utils::GetGhostAI()->Fields.GhostInfo ? Utils::GetGhostAI()->Fields.GhostInfo->Fields.GhostTraits.Name : nullptr);
-					LOG_INFO(Utils::GetActiveSceneName());
+                    LOG_INFO("Map selected");
                 }
 
                 if (ImGui::Button("Call test"))

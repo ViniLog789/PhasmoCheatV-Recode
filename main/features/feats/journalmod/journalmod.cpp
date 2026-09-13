@@ -51,20 +51,7 @@ void JournalModifier::OnDeactivate()
 
 void JournalModifier::OnRender()
 {
-    if (!IsActive() || !Utils::GetGhostAI() || !Utils::GetGhostAI()->Fields.GhostInfo)
-        return;
-
-    const float now = SDK::Time_Get_Time(nullptr);
-    if (now <= 0.0f)
-        return;
-
-    if (lastUpdateTime > 0.0f && (now - lastUpdateTime) < 1.0f)
-        return;
-
-    lastUpdateTime = now;
-
-    const int ghostType = static_cast<int>(Utils::GetGhostAI()->Fields.GhostInfo->Fields.GhostTraits.GhostType_);
-    JournalModifierMain(ghostType);
+    //! dont call SDK in render thread lol
 }
 
 void JournalModifier::OnMenuRender()
@@ -96,6 +83,24 @@ void JournalModifier::OnMenuRender()
     }
 
     ImGui::PopStyleVar();
+}
+
+void JournalModifier::JournalModifierHandler()
+{
+    if (!IsActive() || !Utils::IsInGame())
+        return;
+
+    const float now = SDK::Time_Get_Time(nullptr);
+    if (now <= 0.0f)
+        return;
+
+    if (lastUpdateTime > 0.0f && (now - lastUpdateTime) < 1.0f)
+        return;
+
+    lastUpdateTime = now;
+
+    const int ghostType = static_cast<int>(Utils::GetGhostAI()->Fields.GhostInfo->Fields.GhostTraits.GhostType_);
+    JournalModifierMain(ghostType);
 }
 
 void JournalModifier::JournalModifierMain(int GhostType)

@@ -25,4 +25,6 @@ namespace SDK
 		void* Monitor;
 		ContractFields Fields;
 	};
+
+	DEC_MET(Contract_Vote, void(*)(Contract* contract, MethodInfo* methodInfo), "Assembly-CSharp", "", "Contract", "Vote", 0);
 }

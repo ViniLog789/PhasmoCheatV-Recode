@@ -78,6 +78,7 @@ namespace Utils {
 	SDK::Component* FindComponentByType(std::string type, bool retFirstComponent = false);
 	bool IsObjectInFront(const SDK::Vector3& targetPos, const SDK::Vector3& referencePos, const SDK::Vector3& referenceForward);
 	int32_t GetGhostTypeInt();
+	std::string GetMapName();
 
 	// Helper functions
 	template<typename T>

@@ -150,7 +150,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>urlmon.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -195,6 +195,7 @@
     <ClCompile Include="main\config\config.cpp" />
     <ClCompile Include="main\config\configs_manager.cpp" />
     <ClCompile Include="main\config\LanguageManager.cpp" />
+    <ClCompile Include="main\crashHandler\crashHandler.cpp" />
     <ClCompile Include="main\diagnostics\diagnostics.cpp" />
     <ClCompile Include="main\discordrpc\discordrpc.cpp" />
     <ClCompile Include="main\features\feats\actmonik\actmonik.cpp" />
@@ -202,6 +203,7 @@
     <ClCompile Include="main\features\feats\antikick\antikick.cpp" />
     <ClCompile Include="main\features\feats\audiomod\audiomod.cpp" />
     <ClCompile Include="main\features\feats\autogame\autogame.cpp" />
+    <ClCompile Include="main\features\feats\automap\automap.cpp" />
     <ClCompile Include="main\features\feats\autopickupbone\autopickupbone.cpp" />
     <ClCompile Include="main\features\feats\awesp\awesp.cpp" />
     <ClCompile Include="main\features\feats\cosmeticsunlocker\cosmeticunlocker.cpp" />
@@ -424,6 +426,7 @@
     <ClInclude Include="main\config\configs_manager.h" />
     <ClInclude Include="main\config\LanguageManager.h" />
     <ClInclude Include="main\config\Translations.h" />
+    <ClInclude Include="main\crashHandler\crashHandler.h" />
     <ClInclude Include="main\diagnostics\diagnostics.h" />
     <ClInclude Include="main\discordrpc\discordrpc.h" />
     <ClInclude Include="main\features\feats\actmonik\actmonik.h" />
@@ -432,6 +435,7 @@
     <ClInclude Include="main\features\feats\antikick\antikick.h" />
     <ClInclude Include="main\features\feats\audiomod\audiomod.h" />
     <ClInclude Include="main\features\feats\autogame\autogame.h" />
+    <ClInclude Include="main\features\feats\automap\automap.h" />
     <ClInclude Include="main\features\feats\autopickupbone\autopickupbone.h" />
     <ClInclude Include="main\features\feats\awesp\awesp.h" />
     <ClInclude Include="main\features\feats\cosmeticsunlocker\cosmeticunlocker.h" />

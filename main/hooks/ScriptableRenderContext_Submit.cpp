@@ -12,6 +12,7 @@ void Hooks::hkScriptableRenderContext_Submit(SDK::ScriptableRenderContext* conte
 		Discord::DiscordRPCStatusHandler();
 
 	CALL_METHOD_IF_ACTIVE(Auto, AutoGame, AutoGameHandler);
+	CALL_METHOD_IF_ACTIVE(Auto, AutoMap, AutoMapHandler);
 
 	SDK::ScriptableRenderContext_Submit(context, methodInfo);
 }

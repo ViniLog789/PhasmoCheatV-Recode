@@ -1721,3 +1721,20 @@ int32_t Utils::GetGhostTypeInt()
 
 	return static_cast<int32_t>(GetGhostAI()->Fields.GhostInfo->Fields.GhostTraits.GhostType_);
 }
+
+std::string Utils::GetMapName()
+{
+	std::string mapName = "In MainMenu";
+
+	SDK::Map* mapInstance = GetMap();
+	if (!mapInstance)
+		return mapName;
+
+	if (!IsInGame())
+		return mapName;
+
+	if (mapInstance->Fields.mapName)
+		mapName = Utils::UnityStrToSysStr(*mapInstance->Fields.mapName);
+
+	return mapName;
+}

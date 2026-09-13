@@ -7,6 +7,7 @@
 #include "loader/entry.h"
 #include "loader/proxy.h"
 #include "main/discordrpc/discordrpc.h"
+#include "main/crashHandler/crashHandler.h"
 
 using namespace PhasmoCheatV;
 
@@ -52,6 +53,8 @@ extern "C" __declspec(dllexport) DWORD WINAPI PhasmoCheatVThread()
         return 0;
     }
 
+    CrashHandler::Install();
+
     // Initialize SDK
     if (!SDK::Initialize()) {
         LOG_ERROR("Failed to initialize SDK");
@@ -76,7 +79,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI PhasmoCheatVThread()
 
         Discord::Initialize();
 
-        /* Diagnostics is currently disabled due to some issues, but it will be back in the future updates.
+        /* Diagnostics are currently disabled and will likely never be enabled
         if (Diagnostics::Init())
         {
             Diagnostics::Send("GameVersion", Utils::GetGameVersion());
@@ -96,7 +99,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI PhasmoCheatVThread()
         AHKA(Player_Start);
         AHKA(GhostInfo_SyncValuesNetworked);
         AHKA(GhostInfo_SyncEvidence);
-        AHKA(PhotonObjectInteract_Start);
+        AHKA(PhotonObjectInteract_Start); 
         AHKA(FirstPersonController_Update);
         AHKA(TarotCard_SetCard);
         AHKA(PlayerStamina_Update);
@@ -210,6 +213,9 @@ extern "C" __declspec(dllexport) DWORD WINAPI PhasmoCheatVThread()
     LOG_INFO("Cleanup completed");
 
 finalize:
+	if (CrashHandler::IsInstalled())
+        CrashHandler::Install();
+
     if (loggerInstance)
         loggerInstance->ShutdownConsole();
 

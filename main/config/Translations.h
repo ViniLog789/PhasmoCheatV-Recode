@@ -72,8 +72,6 @@ inline void RegisterAllTranslations()
     ADD_STR("Menu_KeyReserved", "This key is reserved by cheat. Please choose another one.", u8"Эта клавиша зарезервирована читом. Пожалуйста, выберите другую.", u8"该按键已被修改器占用，请选择其他按键");
 
     // Map modifier
-    ADD_STR("AutoSelectMap", "Auto Select Map", u8"Автоматический выбор карты", u8"自动选择地图");
-    ADD_STR("SelectMap", "Select Map", u8"Выбрать карту", u8"请选择地图");
     ADD_STR("CurrentMap", "Current Map %s", u8"Текущая карта %s", u8"当前地图是%s");
     ADD_STR("EnableMapModifier", "Enable Map Modifier", u8"Включить модификатор карты", u8"启用地图修改功能");
     ADD_STR("CustomMaxLights", "Custom max lights", u8"Пользовательский лимит ламп", u8"自定义最大灯光数");
@@ -378,7 +376,6 @@ inline void RegisterAllTranslations()
     ADD_STR("GhostHuntDuration", "Hunt duration", u8"Длительность охоты", u8"猎杀持续时间");
     ADD_STR("GhostSmudged", "Smudged", u8"Окурен");
     ADD_STR("GhostAfterHunting", "After Hunting", u8"После охоты");
-
 
     // SpiritBox Always Answer
     ADD_STR("EnableSpiritBoxAlw", "Enable Spirit Box Always Answer", u8"Включить всегда ответ от радиоприёмника", u8"启用通灵盒必定回应");
@@ -691,6 +688,12 @@ inline void RegisterAllTranslations()
     ADD_STR("StartTruckSound", "Play start truck engine sound", u8"Воспроизвести звук запуска двигателя", u8"播放货车启动音效");
     ADD_STR("FriendlyGhostLol", "Current ghost is friendly lol", u8"Текущий призрак дружелюбный лол", u8"当前鬼魂是友善的鬼");
 
+    // Auto Map
+	ADD_STR("EnableAutoMap", "Enable auto map", u8"Включить автоматическую карту");
+    ADD_STR("Contracts_NotLoaded", "Contracts not loaded yet...", u8"Контракты ещё не загружены...");
+	ADD_STR("SelectMap", "Select map", u8"Выберите карту");
+    ADD_STR("TestMap_Crash", "The test map may crash", u8"Тестовая карта может вызывать сбой игры");
+
     // Headers
     ADD_STR("ActivityMonitor_Header", "Activity Monitor", u8"Монитор активности", u8"活动强度监视器");
     ADD_STR("AWESP_Header", "AW ESP", u8"AW ESP", u8"AW 玩偶高亮");
@@ -751,7 +754,6 @@ inline void RegisterAllTranslations()
     ADD_STR("PlayerDeath_GodModePrevented", "Player death prevented by GodMode. Reason death: ", u8"Смерть игрока предотвращена режимом бога. Причина смерти: ", u8"上帝模式已阻止玩家死亡，致死原因：");
     ADD_STR("AudioModifier_Header", "Audio Modifier", u8"Модификатор аудио", u8"音频修改器");
     ADD_STR("SkipPlayerAnim_Header", "Skip Player Anim", u8"Пропуск анимаций игрока", u8"跳过玩家动画");
-    ADD_STR("SkipLayerAnimation", "Skip player animations", u8"Пропустить анимации игрока", u8"跳过玩家动画"); //todo: remove this traslate key.
     ADD_STR("StaminaPanel_Header", "Stamina Panel", u8"Панель выносливости", u8"体力面板");
     ADD_STR("CrucifixESP_Header", "Crucifix ESP", u8"ESP на распятие", u8"十字架高亮");
     ADD_STR("CrucifixModifier_Header", "Crucifix Modifier", u8"Модификатор распятия", u8"十字架修改器");
@@ -766,6 +768,7 @@ inline void RegisterAllTranslations()
     ADD_STR("FlashLightModifier_Header", "Flashlight Modifier", u8"Модификатор фонарика", u8"手电筒修改器");
     ADD_STR("PotatoeEsp_Header", "Potatoe ESP", u8"ESP на картошку", u8"土豆高亮");
     ADD_STR("StatsPanel_Header", "Level Stats", u8"Статистика уровня", u8"等级统计");
+    ADD_STR("AutoMap_Header", "Auto Map", u8"Автоматическая карта");
 
     // Template
     ADD_STR("", "", u8"");

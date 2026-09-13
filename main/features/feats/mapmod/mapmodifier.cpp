@@ -1,126 +1,103 @@
 #include "mapmodifier.h"
 using namespace PhasmoCheatV::Features::Map;
 
-constexpr int32_t mapIds[] = {
-    -1,  // Random
-    4,   // Tanglewood Drive
-    6,   // Edgefield Road
-    7,   // Ridgeview Court
-    42,   // Nell's Diner
-    10,  // Grafton Farmhouse
-    12,  // Willow Street
-    15,  // Point Hope
-    8,   // Brownstone High School
-    9,   // Bleasdale Farmhouse
-    5,   // Sunny Meadows
-    5,   // Sunny Meadows restricted
-    11,  // Prison
-    13,  // Maple Lodge Campsite
-    14   // Camp Woodwind
-};
-
-const char* mapItems[] = {
-    "Random",
-    "Tanglewood Drive",
-    "Edgefield Road",
-    "Ridgeview Court",
-    "Nell's Diner",
-    "Grafton Farmhouse",
-    "Willow Street",
-    "Point Hope",
-    "Brownstone High School",
-    "Bleasdale Farmhouse",
-    "Sunny Meadows",
-    "Sunny Meadows Restricted",
-    "Prison",
-    "Maple Lodge Campsite",
-    "Camp Woodwind"
-};
-
 MapModifier::MapModifier() : FeatureCore(LANG("MapModifier_Header"), TYPE_MAP)
 {
     DECLARE_CONFIG(GetConfigManager(), "CustomMaxLight", bool, false);
     DECLARE_CONFIG(GetConfigManager(), "MaxLight", int32_t, 10);
-    DECLARE_CONFIG(GetConfigManager(), "AutoSelectMap", bool, false);
-    DECLARE_CONFIG(GetConfigManager(), "AutoVoteMapId", int32_t, -1);
+    //DECLARE_CONFIG(GetConfigManager(), "AutoSelectMap", bool, false);
+    //DECLARE_CONFIG(GetConfigManager(), "AutoVoteMap", std::string, "");
 }
 
 void MapModifier::OnMenuRender()
 {
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(8, 6));
 
-    bool AutoSelectMap = CONFIG_BOOL(GetConfigManager(), "AutoSelectMap");
-    int32_t AutoVoteMapId = CONFIG_INT(GetConfigManager(), "AutoVoteMapId");
-
-    SDK::Map* mapInstance = Utils::GetMap();
-    if (mapInstance && mapInstance->Fields.mapName)
-    {
-        std::string CurrentMapName = Utils::UnityStrToSysStr(*mapInstance->Fields.mapName);
-        ImGui::Text(LANG("CurrentMap"), CurrentMapName.c_str());
-    }
-
-    if (ImGui::Checkbox(LANG("AutoSelectMap"), &AutoSelectMap))
-    {
-        SET_CONFIG_VALUE(GetConfigManager(), "AutoSelectMap", bool, AutoSelectMap);
-    }
-
-    if (AutoSelectMap)
-    {
-        int currentItem = 0;
-        for (int i = 0; i < IM_ARRAYSIZE(mapIds); i++)
-        {
-            if (mapIds[i] == AutoVoteMapId)
-            {
-                currentItem = i;
-                break;
-            }
-        }
-
-        if (ImGui::Combo(LANG("SelectMap"), &currentItem, mapItems, IM_ARRAYSIZE(mapItems)))
-        {
-            int32_t newMapId = mapIds[currentItem];
-            SET_CONFIG_VALUE(GetConfigManager(), "AutoVoteMapId", int32_t, newMapId);
-            selectedAutoVoteMap = static_cast<MapIdsAutoVote>(newMapId);
-        }
-    }
-
     bool enabled = IsActive();
-    bool CustomMaxLight = CONFIG_BOOL(GetConfigManager(), "CustomMaxLight");
-    int32_t MaxLight = CONFIG_INT(GetConfigManager(), "MaxLight");
-
     if (ImGui::Checkbox(LANG("EnableMapModifier"), &enabled))
     {
         SET_CONFIG_VALUE(GetConfigManager(), "Enabled", bool, enabled);
-        if (enabled) OnActivate();
-        else OnDeactivate();
+        enabled ? OnActivate() : OnDeactivate();
     }
 
-    if (enabled)
+    if (!enabled)
     {
-        if (ImGui::Checkbox(LANG("CustomMaxLights"), &CustomMaxLight))
-            SET_CONFIG_VALUE(GetConfigManager(), "CustomMaxLight", bool, CustomMaxLight);
-        if (CustomMaxLight)
-        {
-            if (ImGui::SliderInt(LANG("MaxLights"), &MaxLight, 1, 100))
-                SET_CONFIG_VALUE(GetConfigManager(), "MaxLight", int32_t, MaxLight);
-        }
-
-        if (ImGui::Button(LANG("ActivateAllLights")))
-            lightsModifier = 1;
-
-        ImGui::SameLine();
-
-        if (ImGui::Button(LANG("DeactivateAllLights")))
-            lightsModifier = 2;
-
-        if (ImGui::Button(LANG("TriggerLightning")))
-            callLightning = true;
-
-        ImGui::SameLine();
-
-        if (ImGui::Button(LANG("SwitchFuseBox")))
-            switchFuseBox = true;
+        ImGui::PopStyleVar();
+        return;
     }
+
+    ImGui::Separator();
+
+    std::string CurrentMapName = Utils::GetMapName();
+    ImGui::Text(LANG("CurrentMap"), CurrentMapName.c_str());
+
+    /*
+    bool AutoSelectMap = CONFIG_BOOL(GetConfigManager(), "AutoSelectMap");
+
+    if (ImGui::Checkbox(LANG("AutoSelectMap"), &AutoSelectMap))
+        SET_CONFIG_VALUE(GetConfigManager(), "AutoSelectMap", bool, AutoSelectMap);
+
+    if (AutoSelectMap)
+    {
+        if (contracts.empty())
+            ImGui::TextDisabled("No contracts available");
+        else
+        {
+            if (selectedAutoVoteContract >= static_cast<int>(contracts.size()))
+                selectedAutoVoteContract = 0;
+
+            std::vector<const char*> mapItems;
+            mapItems.reserve(contracts.size());
+
+            for (const auto& contract : contracts)
+                mapItems.push_back(contract.contract_name.c_str());
+
+            if (ImGui::Combo(
+                LANG("SelectMap"),
+                &selectedAutoVoteContract,
+                mapItems.data(),
+                static_cast<int>(mapItems.size())))
+            {
+                SET_CONFIG_VALUE(
+                    GetConfigManager(),
+                    "AutoVoteMap",
+                    std::string,
+                    contracts[selectedAutoVoteContract].contract_name
+                );
+            }
+        }
+    }
+    */
+
+    ImGui::Separator();
+
+    bool CustomMaxLight = CONFIG_BOOL(GetConfigManager(), "CustomMaxLight");
+    int32_t MaxLight = CONFIG_INT(GetConfigManager(), "MaxLight");
+
+    if (ImGui::Checkbox(LANG("CustomMaxLights"), &CustomMaxLight))
+        SET_CONFIG_VALUE(GetConfigManager(), "CustomMaxLight", bool, CustomMaxLight);
+
+    if (CustomMaxLight)
+    {
+        if (ImGui::SliderInt(LANG("MaxLights"), &MaxLight, 1, 100))
+            SET_CONFIG_VALUE(GetConfigManager(), "MaxLight", int32_t, MaxLight);
+    }
+
+    if (ImGui::Button(LANG("ActivateAllLights")))
+        lightsModifier = 1;
+
+    ImGui::SameLine();
+
+    if (ImGui::Button(LANG("DeactivateAllLights")))
+        lightsModifier = 2;
+
+    if (ImGui::Button(LANG("TriggerLightning")))
+        callLightning = true;
+
+    ImGui::SameLine();
+
+    if (ImGui::Button(LANG("SwitchFuseBox")))
+        switchFuseBox = true;
 
     ImGui::PopStyleVar();
 }
@@ -131,6 +108,49 @@ void MapModifier::MapModifierMain()
     {
         SDK::LevelController_sFields->instance->Fields.fuseBox->Fields.maxLights = CONFIG_INT(GetConfigManager(), "MaxLight");
     }
+
+    /*
+
+    if (IsActive() && CONFIG_BOOL(GetConfigManager(), "AutoSelectMap"))
+    {
+        auto* mainManager = SDK::MainManager_staticFields->instance;
+        auto* levelSelection = mainManager ? mainManager->Fields.levelSelection : nullptr;
+
+        if (levelSelection && levelSelection->Fields.contracts)
+        {
+            std::string targetMapName = CONFIG_STRING(GetConfigManager(), "AutoVoteMap");
+
+            if (!targetMapName.empty())
+            {
+                auto* array = reinterpret_cast<SDK::ContractsArray*>(levelSelection->Fields.contracts);
+                SDK::Contract* targetContract = nullptr;
+
+                for (int32_t i = 0; i < array->max_length; ++i)
+                {
+                    auto* contract = array->vector[i];
+                    if (!contract || !contract->Fields.info || !contract->Fields.info->Fields.mapName)
+                        continue;
+
+                    std::string currentName = Utils::UnityStrToSysStr(*contract->Fields.info->Fields.mapName);
+                    if (currentName == targetMapName)
+                    {
+                        targetContract = contract;
+                        break;
+                    }
+                }
+
+                if (targetContract && levelSelection->Fields.votedContract != targetContract)
+                {
+                    LOG_INFO("AutoVote: Voting for " + targetMapName);
+                    SDK::Contract_Vote(targetContract, nullptr);
+
+                    NOTIFY_INFO_QUICK("Auto-selected map: " + targetMapName);
+                }
+            }
+        }
+    }
+
+    */
     
     if (IsActive() && lightsModifier == 1)
     {
@@ -218,13 +238,13 @@ void MapModifier::MapModifierMain()
             return;
         }
 
-        if (weatherProfile->Fields.weatherType != SDK::WeatherType::heavyRain) // NEVER REMOVE THIS IF LOOP
+        if (weatherProfile->Fields.weatherType != SDK::WeatherType::heavyRain) //! NEVER REMOVE THIS IF LOOP
         {
             NOTIFY_ERROR_QUICK(LANG("WeatherShouldBeHeavyRain"));
             return;
         }
 
-        if (!SDK::PhotonNetwork_Get_IsMasterClient(nullptr) || !SDK::PhotonNetwork_Get_OfflineMode(nullptr)) // NEVER REMOVE THIS IF LOOP
+        if (!SDK::PhotonNetwork_Get_IsMasterClient(nullptr) || !SDK::PhotonNetwork_Get_OfflineMode(nullptr)) //! NEVER REMOVE THIS IF LOOP
         {
             NOTIFY_ERROR_QUICK("NeedMustBeHost");
             return;
@@ -260,38 +280,162 @@ void MapModifier::MapModifierMain()
     }
 }
 
-std::atomic<bool> autoVoteRunning{ false };
+/*
+std::vector<MapModifier::ContractsRet> MapModifier::GetAllContracts()
+{
+    std::vector<MapModifier::ContractsRet> contracts;
+
+    auto mainManager = SDK::MainManager_staticFields->instance;
+    if (!mainManager)
+    {
+        LOG_ERROR("MapModifier::GetAllContracts: MainManager instance is null");
+        return contracts;
+    }
+    LOG_INFO("MapModifier::GetAllContracts: MainManager OK");
+
+    auto levelSelection = mainManager->Fields.levelSelection;
+    if (!levelSelection)
+    {
+        LOG_ERROR("MapModifier::GetAllContracts: levelSelection is null");
+        return contracts;
+    }
+    LOG_INFO("MapModifier::GetAllContracts: levelSelection OK");
+
+    auto array = reinterpret_cast<SDK::ContractsArray*>(levelSelection->Fields.contracts);
+    if (!array)
+    {
+        LOG_ERROR("MapModifier::GetAllContracts: contracts array is null");
+        return contracts;
+    }
+
+    LOG_INFO("MapModifier::GetAllContracts: contracts array max_length = " + std::to_string(array->max_length));
+
+    if (array->max_length <= 0)
+    {
+        LOG_ERROR("MapModifier::GetAllContracts: contracts array is empty (max_length <= 0)");
+        return contracts;
+    }
+
+    int validCount = 0;
+    int nullContract = 0;
+    int nullInfo = 0;
+    int nullMapName = 0;
+
+    for (int32_t i = 0; i < array->max_length; ++i)
+    {
+        auto contract = array->vector[i];
+        if (!contract)
+        {
+            ++nullContract;
+            continue;
+        }
+        if (!contract->Fields.info)
+        {
+            ++nullInfo;
+            continue;
+        }
+
+        auto mapName = contract->Fields.info->Fields.mapName;
+        if (!mapName)
+        {
+            ++nullMapName;
+            continue;
+        }
+
+        std::string name = Utils::UnityStrToSysStr(*mapName);
+        contracts.push_back({
+            contract,
+            name
+            });
+        ++validCount;
+
+        LOG_INFO("MapModifier::GetAllContracts: [" + std::to_string(i) + "] " + name);
+    }
+
+    LOG_INFO("MapModifier::GetAllContracts: summary -> valid=" + std::to_string(validCount) +
+        " nullContract=" + std::to_string(nullContract) +
+        " nullInfo=" + std::to_string(nullInfo) +
+        " nullMapName=" + std::to_string(nullMapName));
+
+    return contracts;
+}
+
+void MapModifier::RefreshContracts()
+{
+    contracts.clear();
+    selectedAutoVoteContract = 0;
+    contractsAvailable = false;
+
+    LOG_INFO("MapModifier::RefreshContracts: starting...");
+
+    auto newContracts = GetAllContracts();
+    if (newContracts.empty())
+    {
+        LOG_ERROR("MapModifier::RefreshContracts: failed to load contracts (empty list)");
+        return;
+    }
+
+    contracts = std::move(newContracts);
+    contractsAvailable = true;
+
+    LOG_INFO("MapModifier::RefreshContracts: loaded " + std::to_string(contracts.size()) + " contracts");
+
+    const auto selectedMap = CONFIG_STRING(GetConfigManager(), "AutoVoteMap");
+    if (!selectedMap.empty())
+    {
+        bool found = false;
+        for (int32_t i = 0; i < static_cast<int32_t>(contracts.size()); ++i)
+        {
+            if (contracts[i].contract_name == selectedMap)
+            {
+                selectedAutoVoteContract = i;
+                found = true;
+                LOG_INFO("MapModifier::RefreshContracts: restored selected map \"" + selectedMap + "\" at index " + std::to_string(i));
+                break;
+            }
+        }
+        if (!found)
+        {
+            LOG_ERROR("MapModifier::RefreshContracts: previously selected map \"" + selectedMap + "\" not found in current contracts");
+        }
+    }
+    else
+    {
+        LOG_INFO("MapModifier::RefreshContracts: no previously selected map in config");
+    }
+}
 
 void MapModifier::MapModifierMainAutoVote(SDK::LevelSelectionManager* levelSelectionManager)
 {
-    if (autoVoteRunning.load())
-        return;
-
     if (!CONFIG_BOOL(GetConfigManager(), "AutoSelectMap"))
         return;
 
-    autoVoteRunning.store(true);
-    std::thread([this, levelSelectionManager]() {
-        auto start = std::chrono::steady_clock::now();
+    if (!levelSelectionManager)
+        return;
 
-        while (true)
-        {
-            auto now = std::chrono::steady_clock::now();
-            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count();
+    if (autoVoteDone.load())
+        return;
 
-            if (elapsed >= 5000)
-            {
-                if (levelSelectionManager)
-                {
-                    int32_t mapId = CONFIG_INT(GetConfigManager(), "AutoVoteMapId");
-                    SDK::LevelSelectionManager_VoteMap(levelSelectionManager, mapId, nullptr);
-                }
-                break;
-            }
+    if (contracts.empty() || selectedAutoVoteContract < 0 ||
+        selectedAutoVoteContract >= static_cast<int>(contracts.size()))
+    {
+        LOG_ERROR("AutoVote: contracts not ready");
+        return;
+    }
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        }
+    auto* contract = contracts[selectedAutoVoteContract].contract_addr;
+    if (!contract)
+        return;
 
-        autoVoteRunning.store(false);
-        }).detach();
+    if (levelSelectionManager->Fields.votedContract == contract)
+    {
+        autoVoteDone.store(true);
+        return;
+    }
+
+    pendingAutoVote.store(true);
+    LOG_INFO("AutoVote: pending vote set for \"" +
+        contracts[selectedAutoVoteContract].contract_name + "\"");
 }
+
+*/

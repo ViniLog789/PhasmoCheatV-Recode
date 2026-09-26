@@ -724,22 +724,6 @@ void Menu::Render()
                     }
                 }
 
-                if (ImGui::Button("Test_map join"))
-                {
-                    auto mainManager = SDK::MainManager_staticFields->instance;
-                    if (!mainManager)
-                    {
-                        LOG_ERROR("MainManager instance is null");
-                        return;
-                    }
-
-                    auto levelSelection = mainManager->Fields.levelSelection;
-
-                    SDK::LevelSelectionManager_VoteMap(levelSelection, 65, nullptr);
-
-                    LOG_INFO("Map selected");
-                }
-
                 if (ImGui::Button("Call test"))
                 {
                     ForTestsFlag = true;

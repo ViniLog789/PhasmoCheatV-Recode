@@ -139,6 +139,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI PhasmoCheatVThread()
         AHKA(Crucifix_GhostUse);
         AHKA(WaitForSeconds_ctor);
         AHKA(FootstepController_AttemptPlaySound);
+        AHKA(NetworkedPropGrab_EnableOrDisableObjectRPC);
         PHK(HandCamera_MoveNext, Hooks::hkHandCamera_MoveNext); // using PATTERN_HOOK
 		PHK(HuntingState_ctor, Hooks::hkHuntingState_ctor);
         PHK(EMFData_UpdateNightMareGraph, Hooks::hkEMFData_UpdateNightMareGraph);

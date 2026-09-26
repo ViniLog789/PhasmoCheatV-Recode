@@ -64,6 +64,7 @@ namespace PhasmoCheatV
 		static void hkCrucifix_GhostUse(SDK::Crucifix* crucifix, SDK::MethodInfo* methodInfo);
 		static void hkWaitForSeconds_ctor(SDK::WaitForSeconds* waitForSeconds, float seconds, SDK::MethodInfo* methodInfo);
 		static void hkFootstepController_AttemptPlaySound(SDK::FootstepController* footstepController, SDK::MethodInfo* methodInfo);
+		static void hkNetworkedPropGrab_EnableOrDisableObjectRPC(SDK::NetworkedPropGrab* prop, int32_t photonId, bool enabled, SDK::PhotonMessageInfo* photonInfo ,SDK::MethodInfo* methodInfo);
 		 
 		// CosmeticsUnlocker hooks
 #if COSMETICSUNLOCKER

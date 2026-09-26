@@ -170,6 +170,7 @@
     <ClCompile Include="main\hooks\FootstepController_AttemptPlaySound.cpp" />
     <ClCompile Include="main\crashHandler\crashHandler.cpp" />
     <ClCompile Include="main\features\feats\automap\automap.cpp" />
+    <ClCompile Include="main\hooks\NetworkedPropGrab_EnableOrDisableObjectRPC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h" />
@@ -499,6 +500,7 @@
     <ClInclude Include="main\sdk\FootstepController.h" />
     <ClInclude Include="main\crashHandler\crashHandler.h" />
     <ClInclude Include="main\features\feats\automap\automap.h" />
+    <ClInclude Include="main\sdk\NetworkedPropGrab.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

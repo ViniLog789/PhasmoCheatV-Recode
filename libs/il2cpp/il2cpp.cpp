@@ -24,6 +24,7 @@ static t_il2cpp_class_get_name p_il2cpp_class_get_name = nullptr;
 static t_il2cpp_class_get_namespace p_il2cpp_class_get_namespace = nullptr;
 static t_il2cpp_array_new p_il2cpp_array_new = nullptr;
 static t_il2cpp_value_box p_il2cpp_value_box = nullptr;
+static t_il2cpp_object_unbox p_il2cpp_object_unbox = nullptr;
 
 static bool ResolveSymbol(const char* name, FARPROC* out)
 {
@@ -62,6 +63,7 @@ bool il2cpp_initialize()
     RESOLVE_SYMBOL("il2cpp_class_get_namespace", p_il2cpp_class_get_namespace);
     RESOLVE_SYMBOL("il2cpp_array_new", p_il2cpp_array_new);
     RESOLVE_SYMBOL("il2cpp_value_box", p_il2cpp_value_box);
+    RESOLVE_SYMBOL("il2cpp_object_unbox", p_il2cpp_object_unbox);
 #undef RESOLVE_SYMBOL
 
     return true;
@@ -149,6 +151,11 @@ Il2CppClass* il2cpp_class_from_name_wrap(Il2CppImage* image, const char* namespa
     return p_il2cpp_class_from_name
         ? p_il2cpp_class_from_name(image, namespaze, name)
         : nullptr;
+}
+
+void* il2cpp_object_unbox(Il2CppObject* obj)
+{
+    return p_il2cpp_object_unbox ? p_il2cpp_object_unbox(obj) : nullptr;
 }
 
 Il2CppClass* il2cpp_get_class(const char* assemblyName, const char* namespaze, const char* name)

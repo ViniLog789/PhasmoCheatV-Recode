@@ -15,7 +15,7 @@ namespace SDK
         bool Field30;
         bool isProp;
         bool isItem;
-        bool field6;
+        bool isGrabbable;
         bool isDroppable;
         bool isUsable;
         bool field9;

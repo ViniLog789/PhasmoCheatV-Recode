@@ -186,6 +186,7 @@ extern "C" {
     typedef const char* (*t_il2cpp_class_get_namespace)(Il2CppClass*);
     typedef Il2CppObject* (*t_il2cpp_array_new)(Il2CppClass* elementTypeInfo, il2cpp_array_size_t length);
     typedef Il2CppObject* (*t_il2cpp_value_box)(Il2CppClass* klass, void* data);
+    typedef void* (*t_il2cpp_object_unbox)(Il2CppObject* obj);
 
     bool il2cpp_initialize();
     Il2CppDomain* il2cpp_domain_get();
@@ -209,6 +210,7 @@ extern "C" {
     Il2CppClass* il2cpp_class_from_name_wrap(Il2CppImage* image, const char* namespaze, const char* name);
     Il2CppObject* il2cpp_array_new_wrap(Il2CppClass* klass, il2cpp_array_size_t length);
     Il2CppObject* il2cpp_value_box(Il2CppClass* klass, void* data);
+    void* il2cpp_object_unbox(Il2CppObject* obj);
 
     Il2CppMethodPointer il2cpp_get_method_pointer(const char* assemblyName, const char* namespaze, const char* className, const char* methodName, int argsCount);
 }

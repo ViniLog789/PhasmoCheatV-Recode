@@ -299,6 +299,7 @@
     <ClCompile Include="main\hooks\LiftButton_Update.cpp" />
     <ClCompile Include="main\hooks\LightningController_Start.cpp" />
     <ClCompile Include="main\hooks\LightSwitch_Start.cpp" />
+    <ClCompile Include="main\hooks\NetworkedPropGrab_EnableOrDisableObjectRPC.cpp" />
     <ClCompile Include="main\hooks\PhotonView_RPC.cpp" />
     <ClCompile Include="main\hooks\Player_NotifyOfDeathEnd.cpp" />
     <ClCompile Include="main\hooks\Player_NotifyOfDeathStart.cpp" />
@@ -590,6 +591,7 @@
     <ClInclude Include="main\sdk\MouseLook.h" />
     <ClInclude Include="main\sdk\NavMesh.h" />
     <ClInclude Include="main\sdk\Network.h" />
+    <ClInclude Include="main\sdk\NetworkedPropGrab.h" />
     <ClInclude Include="main\sdk\Object.h" />
     <ClInclude Include="main\sdk\ObjectiveManager.h" />
     <ClInclude Include="main\sdk\PauseMenuController.h" />

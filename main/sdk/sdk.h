@@ -644,3 +644,4 @@ namespace SDK
 #include "WaitForSeconds.h"
 #include "MainManager.h"
 #include "FootstepController.h"
+#include "NetworkedPropGrab.h"

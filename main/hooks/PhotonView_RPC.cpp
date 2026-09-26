@@ -25,5 +25,12 @@ void Hooks::hkPhotonView_RPC(SDK::PhotonView* photonView, SDK::String* methodNam
             return;
     }
 
+    if (Utils::UnityStrToSysStr(*methodName) == "EnableOrDisableObjectRPC")
+    {
+		auto params = reinterpret_cast<SDK::System_Object_array*>(parameters);
+
+        // bad idea..
+    }
+
     SDK::PhotonView_RPC(photonView, methodName, target, parameters, methodInfo);
 }

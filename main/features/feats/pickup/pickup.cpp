@@ -46,15 +46,12 @@ void Pickup::OnMenuRender()
 		if (ImGui::SliderFloat(LANG("GrabDistance"), &CustomGrabDistance, 1.f, 50.0f, "%.1f "))
 			SET_CONFIG_VALUE(GetConfigManager(), "CustomGrabDistance", float, CustomGrabDistance);
 
-		if (ImGui::Checkbox(LANG("PickupEverything"), &PickupEverything))
+		wImGui::TempDisabled(1);
+		if (WD(ImGui::Checkbox(LANG("PickupEverything"), &PickupEverything)))
 			SET_CONFIG_VALUE(GetConfigManager(), "PickupEverything", bool, PickupEverything);
 
-		wImGui::TempDisabled(1);
-		if (WD(ImGui::Checkbox(LANG("PocketEverything"), &PocketEverything)))
-		{
+		if (ImGui::Checkbox(LANG("PocketEverything"), &PocketEverything))
 			SET_CONFIG_VALUE(GetConfigManager(), "PocketEverything", bool, PocketEverything);
-			//PocketEverything ? SDK::Call_ForceDrop_nop(5) : SDK::Call_ForceDrop_restore();
-		}
 	}
 
 	ImGui::PopStyleVar();
@@ -62,8 +59,12 @@ void Pickup::OnMenuRender()
 
 void Pickup::PickupMain()
 {
-	if (InGame::photonInstances.empty()) return;
-	if (!IsActive()) return;
+	if (InGame::photonInstances.empty())
+		return;
+
+	if (!IsActive()) 
+		return;
+
 	if (CONFIG_BOOL(GetConfigManager(), "GrabDistanceMultiplier"))
 	{
 		float grabDistance = CONFIG_FLOAT(GetConfigManager(), "CustomGrabDistance");
@@ -71,6 +72,7 @@ void Pickup::PickupMain()
 			SDK::PickupDistance_wr(grabDistance);
 
 	}
+
 	if (CONFIG_BOOL(GetConfigManager(), "PickupEverything"))
 	{
 		for (auto* obj : InGame::photonInstances)
@@ -81,8 +83,10 @@ void Pickup::PickupMain()
 			obj->Fields.isItem = true;
 			obj->Fields.isDroppable = true;
 			obj->Fields.isUsable = true;
+			obj->Fields.isGrabbable = true;
 		}
 	}
+
 	if (CONFIG_BOOL(GetConfigManager(), "ThrowMultiplier"))
 	{
 		for (auto* obj : InGame::photonInstances)
@@ -93,3 +97,36 @@ void Pickup::PickupMain()
 		}
 	}
 }
+
+/* have fun :)
+* (C#, UnityExplorer, Multiplayer not tested)
+inf slots:
+
+int targetSlots = 50;
+
+var allPc = UnityEngine.Object.FindObjectsOfType<Il2Cpp.PCPropGrab>();
+for (int i = 0; i < allPc.Length; i++)
+{
+	var list = allPc[i].field_Public_List_1_PhotonObjectInteract_0;
+	if (list != null)
+	{
+		Log("PCPropGrab[" + i + "] 1" + list.Count);
+		while (list.Count < targetSlots)
+			list.Add(null);
+		Log("PCPropGrab[" + i + "] 2" + list.Count);
+	}
+}
+
+var allNet = UnityEngine.Object.FindObjectsOfType<Il2Cpp.NetworkedPropGrab>();
+for (int i = 0; i < allNet.Length; i++)
+{
+	var list = allNet[i].field_Public_List_1_PhotonObjectInteract_0;
+	if (list != null)
+	{
+		Log("NetworkedPropGrab[" + i + "] 1" + list.Count);
+		while (list.Count < targetSlots)
+			list.Add(null);
+		Log("NetworkedPropGrab[" + i + "] 2" + list.Count);
+	}
+}
+*/
